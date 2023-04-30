@@ -15,73 +15,26 @@
  * limitations under the License.
  */
 
-package org.keepwalking.common.api;
+package org.keepwalking.common.core;
 
 /**
- * Api响应结果类
+ * 响应结果定义
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public class ApiResult<T> implements Result<T> {
+public interface Result {
     /**
      * 返回码
      *
      * @return 返回码
      */
-    private String code;
+    String code();
+
     /**
      * 返回消息
      *
      * @return 返回消息
      */
-    private String message;
-    /**
-     * 返回内容
-     *
-     * @return 返回内容
-     */
-    private T body;
-
-    public String getCode() {
-        return code;
-    }
-
-    public ApiResult<T> setCode(String code) {
-        this.code = code;
-        return this;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public ApiResult<T> setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-
-    public T getBody() {
-        return body;
-    }
-
-    public ApiResult<T> setBody(T body) {
-        this.body = body;
-        return this;
-    }
-
-    @Override
-    public String code() {
-        return getCode();
-    }
-
-    @Override
-    public String message() {
-        return getMessage();
-    }
-
-    @Override
-    public T body() {
-        return getBody();
-    }
+    String message();
 }

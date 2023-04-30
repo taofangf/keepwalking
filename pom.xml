@@ -35,13 +35,16 @@
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
-    <description>不断前行</description>
+    <description>
+        既然选择了远方,便只顾风雨兼程。
+    </description>
 
     <modules>
         <module>keepwalking-dependencies</module>
         <module>keepwalking-common</module>
         <module>keepwalking-bom</module>
         <module>keepwalking-utils</module>
+        <module>keepwalking-sysmgr</module>
     </modules>
 
     <scm>
@@ -69,14 +72,24 @@
             <dependency>
                 <groupId>org.keepwalking</groupId>
                 <artifactId>keepwalking-dependencies</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.keepwalking</groupId>
+                <artifactId>keepwalking-common</artifactId>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>

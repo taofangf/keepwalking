@@ -20,41 +20,37 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>keepwalking-utils</artifactId>
+        <artifactId>keepwalking-sysmgr</artifactId>
         <groupId>org.keepwalking</groupId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>keepwalking-util-desensitization</artifactId>
+    <artifactId>keepwalking-sysmgr-biz</artifactId>
+    <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <description>脱敏(模糊化工具类)</description>
 
     <dependencies>
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
+            <groupId>org.keepwalking</groupId>
+            <artifactId>keepwalking-sysmgr-api</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <optional>true</optional>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <optional>true</optional>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
         </dependency>
     </dependencies>
 </project>

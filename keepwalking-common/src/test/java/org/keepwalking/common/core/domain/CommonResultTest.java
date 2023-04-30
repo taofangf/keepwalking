@@ -15,33 +15,24 @@
  * limitations under the License.
  */
 
-package org.keepwalking.common.api;
+package org.keepwalking.common.core.domain;
+
+import org.junit.Test;
 
 /**
- * 响应结果定义
- *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public interface Result<T> {
-    /**
-     * 返回码
-     *
-     * @return 返回码
-     */
-    String code();
+public class CommonResultTest {
+    @Test
+    public void success(){
+        CommonResult<Object> success = CommonResult.success();
+        System.out.println("success = " + success);
+    }
 
-    /**
-     * 返回消息
-     *
-     * @return 返回消息
-     */
-    String message();
-
-    /**
-     * 返回内容
-     *
-     * @return 返回内容
-     */
-    T body();
+    @Test
+    public void error(){
+        CommonResult<Object> error = CommonResult.error();
+        System.out.println("error = " + error);
+    }
 }

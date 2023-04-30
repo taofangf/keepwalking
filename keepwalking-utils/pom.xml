@@ -27,7 +27,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>keepwaling-utils</artifactId>
+    <artifactId>keepwalking-utils</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <description>工具类模块</description>

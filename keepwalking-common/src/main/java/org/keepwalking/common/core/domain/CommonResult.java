@@ -15,9 +15,13 @@
  * limitations under the License.
  */
 
-package org.keepwalking.common.api;
+package org.keepwalking.common.core.domain;
 
-import org.keepwalking.common.enums.ResultCodeEnum;
+import lombok.*;
+import org.keepwalking.common.core.Result;
+import org.keepwalking.common.core.enums.CommonResultEnum;
+
+import java.io.Serializable;
 
 /**
  * 公用返回结果类
@@ -25,7 +29,13 @@ import org.keepwalking.common.enums.ResultCodeEnum;
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public class CommonResult<T> {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class CommonResult<T> implements Serializable {
+    private static final long serialVersionUID = -8136061580166740309L;
     /**
      * 返回码
      */
@@ -41,12 +51,15 @@ public class CommonResult<T> {
      */
     private T data;
 
-    public CommonResult() {
-    }
-
-    public CommonResult(String code, String message, T data) {
-        this.code = code;
-        this.message = message;
+    /**
+     * 公用返回构造
+     *
+     * @param result {@link Result}
+     * @param data   {@link #data}
+     */
+    public CommonResult(Result result, T data) {
+        this.code = result.code();
+        this.message = result.message();
         this.data = data;
     }
 
@@ -57,7 +70,7 @@ public class CommonResult<T> {
      * @return 成功响应
      */
     public static <T> CommonResult<T> success() {
-        return new CommonResult(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), null);
+        return new CommonResult(CommonResultEnum.SUCCESS, null);
     }
 
     /**
@@ -68,7 +81,7 @@ public class CommonResult<T> {
      * @return 成功响应
      */
     public static <T> CommonResult<T> success(T data) {
-        return new CommonResult(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), data);
+        return new CommonResult(CommonResultEnum.SUCCESS, data);
     }
 
     /**
@@ -91,7 +104,7 @@ public class CommonResult<T> {
      * @return 失败响应
      */
     public static <T> CommonResult<T> error() {
-        return new CommonResult(ResultCodeEnum.ERROR.getCode(), ResultCodeEnum.ERROR.getMessage(), null);
+        return new CommonResult(CommonResultEnum.ERROR, null);
     }
 
     /**
@@ -102,7 +115,7 @@ public class CommonResult<T> {
      * @return 失败响应
      */
     public static <T> CommonResult error(T data) {
-        return new CommonResult(ResultCodeEnum.ERROR.getCode(), ResultCodeEnum.ERROR.getMessage(), data);
+        return new CommonResult(CommonResultEnum.ERROR, data);
     }
 
     /**
@@ -116,32 +129,5 @@ public class CommonResult<T> {
      */
     public static <T> CommonResult<T> error(String code, String message, T data) {
         return new CommonResult(code, message, data);
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public CommonResult<T> setCode(String code) {
-        this.code = code;
-        return this;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public CommonResult<T> setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public CommonResult<T> setData(T data) {
-        this.data = data;
-        return this;
     }
 }

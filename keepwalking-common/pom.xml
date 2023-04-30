@@ -29,11 +29,9 @@
     <packaging>jar</packaging>
     <artifactId>keepwalking-common</artifactId>
     <name>${project.artifactId}</name>
+    <description>公用基础组件</description>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-        </dependency>
+
     </dependencies>
 </project>

@@ -15,27 +15,35 @@
  * limitations under the License.
  */
 
-package org.keepwalking.common.exception;
+package org.keepwalking.common.core.enums;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
- * 基础异常
+ * 通用状态枚举
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public class BaseException extends RuntimeException {
+@Getter
+@AllArgsConstructor
+public enum CommonStatusEnum {
     /**
-     * 异常错误码
+     * 启用
      */
-    private final String errorCode;
-
+    ENABLE(0, "启用"),
     /**
-     * 异常错误信息
+     * 禁用
      */
-    private final String errorMessage;
-
-    public BaseException(String errorCode, String errorMessage) {
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-    }
+    DISABLE(1, "禁用"),
+    ;
+    /**
+     * 状态码
+     */
+    private final Integer status;
+    /**
+     * 状态描述
+     */
+    private final String desc;
 }
