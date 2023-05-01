@@ -15,29 +15,41 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.sysmgr.controller.permission.vo.role;
 
-import lombok.extern.slf4j.Slf4j;
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
-import org.keepwalking.sysmgr.convert.dict.DictDataConvert;
-import org.keepwalking.sysmgr.repository.dict.DictDataDO;
-import org.springframework.stereotype.Service;
+import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * 字典数据表 Service 实现类
+ * 角色BaseVO
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Service
-@Slf4j
-public class DictDataServiceImpl implements DictDataService {
-
-    @Override
-    public Long createDictData(DictDataCreateReqVO reqVO) {
-        // TODO: 2023/4/30 数据校验
-        DictDataDO dictDataDO = DictDataConvert.INSTANCE.convert(reqVO);
-        // TODO: 2023/4/29 VO转DO插入数据库
-        return null;
-    }
+@Data
+public class RoleBaseVO {
+    /**
+     * 角色名称
+     */
+    @NotBlank(message = "角色名称不能为空")
+    @Size(max = 30, message = "角色名称长度不能超过30个字符")
+    private String name;
+    /**
+     * 角色编码
+     */
+    @NotBlank(message = "角色标志不能为空")
+    @Size(max = 100, message = "角色标志长度不能超过100个字符")
+    private String code;
+    /**
+     * 显示顺序
+     */
+    @NotNull(message = "显示顺序不能为空")
+    private Integer sort;
+    /**
+     * 备注
+     */
+    private String remark;
 }

@@ -29,11 +29,9 @@ import java.io.Serializable;
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class CommonResult<T> implements Serializable {
     private static final long serialVersionUID = -8136061580166740309L;
     /**

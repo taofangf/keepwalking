@@ -15,61 +15,60 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.controller.dict.vo;
+package org.keepwalking.sysmgr.controller.user.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * 字典数据BaseVO
+ * 用户基础信息
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Data
-public class DictDataBaseVO {
+public class UserBaseVO {
     /**
-     * 顺序
+     * 用户账号
      */
-    @NotNull(message = "显示顺序不能为空")
-    private Integer sort;
+    @NotBlank(message = "用户账号不能为空")
+    @Pattern(regexp = "^[a-zA-Z0-9]{4,30}$", message = "用户账号由 数字、字母 组成")
+    @Size(min = 4, max = 30, message = "用户账号长度为 4-30 个字符")
+    private String username;
     /**
-     * 标签
+     * 用户昵称
      */
-    @NotBlank(message = "字典标签不能为空")
-    @Size(max = 100, message = "字典标签长度不能超过100个字符")
-    private String label;
-    /**
-     * 字典值
-     */
-    @NotBlank(message = "字典值不能为空")
-    @Size(max = 100, message = "字典值长度不能超过100个字符")
-    private String value;
-    /**
-     * 字典类型
-     */
-    @NotBlank(message = "字典类型不能为空")
-    @Size(max = 100, message = "字典类型长度不能超过100个字符")
-    private String dictType;
-    /**
-     * 字典状态
-     */
-    @NotNull(message = "状态不能为空")
-    private Integer status;
-    /**
-     * 颜色类型
-     */
-    private String colorType;
-    /**
-     * css样式
-     */
-    private String cssClass;
+    @Size(max = 30, message = "用户昵称长度不能超过30个字符")
+    private String nickname;
     /**
      * 备注
      */
-    @Size(max = 256, message = "备注不能超过256个字符")
     private String remark;
+    /**
+     * 部门ID
+     */
+    private Long deptId;
+    // TODO: 2023/5/1 岗位编号数组属性暂时没有添加
+    /**
+     * 邮箱
+     */
+    @Email(message = "邮箱格式不正确")
+    @Size(max = 50, message = "邮箱长度不能超过 50 个字符")
+    private String email;
+    /**
+     * 手机号码
+     */
+    private String mobile;
+    /**
+     * 性别
+     */
+    private Integer sex;
+    /**
+     * 头像图标
+     */
+    private String avatar;
 }

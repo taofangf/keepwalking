@@ -15,22 +15,50 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.sysmgr.repository.dept;
 
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.keepwalking.sysmgr.repository.base.BaseDO;
 
 /**
- * 字典数据表 Service
+ * 岗位表
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public interface DictDataService {
+@TableName("system_post")
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class PostDO extends BaseDO {
+    private static final long serialVersionUID = -8796094088649720718L;
     /**
-     * 创建字典数据
-     *
-     * @param reqVO {@link DictDataCreateReqVO}
-     * @return 字典数据编号
+     * 岗位序号
      */
-    Long createDictData(DictDataCreateReqVO reqVO);
+    @TableId
+    private Long id;
+    /**
+     * 岗位名称
+     */
+    private String name;
+    /**
+     * 岗位编码
+     */
+    private String code;
+    /**
+     * 岗位排序
+     */
+    private Integer sort;
+    /**
+     * 状态
+     * <p>
+     * 枚举 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
+     */
+    private Integer status;
+    /**
+     * 备注
+     */
+    private String remark;
 }

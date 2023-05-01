@@ -15,29 +15,36 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.sysmgr.repository.permission;
 
-import lombok.extern.slf4j.Slf4j;
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
-import org.keepwalking.sysmgr.convert.dict.DictDataConvert;
-import org.keepwalking.sysmgr.repository.dict.DictDataDO;
-import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.keepwalking.sysmgr.repository.base.BaseDO;
 
 /**
- * 字典数据表 Service 实现类
+ * 用户角色关联表
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Service
-@Slf4j
-public class DictDataServiceImpl implements DictDataService {
-
-    @Override
-    public Long createDictData(DictDataCreateReqVO reqVO) {
-        // TODO: 2023/4/30 数据校验
-        DictDataDO dictDataDO = DictDataConvert.INSTANCE.convert(reqVO);
-        // TODO: 2023/4/29 VO转DO插入数据库
-        return null;
-    }
+@TableName("system_user_role")
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class UserRoleDO extends BaseDO {
+    private static final long serialVersionUID = -8100678741874725942L;
+    /**
+     * 自增主键
+     */
+    @TableId
+    private Long id;
+    /**
+     * 用户 ID
+     */
+    private Long userId;
+    /**
+     * 角色 ID
+     */
+    private Long roleId;
 }

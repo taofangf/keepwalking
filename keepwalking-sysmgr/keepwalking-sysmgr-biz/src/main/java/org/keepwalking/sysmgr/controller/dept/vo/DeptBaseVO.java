@@ -15,61 +15,56 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.controller.dict.vo;
+package org.keepwalking.sysmgr.controller.dept.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 字典数据BaseVO
+ * 部门BaseVO
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Data
-public class DictDataBaseVO {
+public class DeptBaseVO {
     /**
-     * 顺序
+     * 部门名称
+     */
+    @NotBlank(message = "部门名称不能为空")
+    @Size(max = 30, message = "部门名称长度不能超过30个字符")
+    private String name;
+    /**
+     * 父部门ID
+     */
+    private Long parentId;
+    /**
+     * 显示顺序
      */
     @NotNull(message = "显示顺序不能为空")
     private Integer sort;
     /**
-     * 标签
+     * 负责人用户编号
      */
-    @NotBlank(message = "字典标签不能为空")
-    @Size(max = 100, message = "字典标签长度不能超过100个字符")
-    private String label;
+    private Long leaderUserId;
     /**
-     * 字典值
+     * 联系电话
      */
-    @NotBlank(message = "字典值不能为空")
-    @Size(max = 100, message = "字典值长度不能超过100个字符")
-    private String value;
+    @Size(max = 11, message = "联系电话长度不能超过11个字符")
+    private String phone;
     /**
-     * 字典类型
+     * 邮箱
      */
-    @NotBlank(message = "字典类型不能为空")
-    @Size(max = 100, message = "字典类型长度不能超过100个字符")
-    private String dictType;
+    @Email(message = "邮箱格式不正确")
+    @Size(max = 50, message = "邮箱长度不能超过50个字符")
+    private String email;
     /**
-     * 字典状态
+     * 状态 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
      */
     @NotNull(message = "状态不能为空")
     private Integer status;
-    /**
-     * 颜色类型
-     */
-    private String colorType;
-    /**
-     * css样式
-     */
-    private String cssClass;
-    /**
-     * 备注
-     */
-    @Size(max = 256, message = "备注不能超过256个字符")
-    private String remark;
 }

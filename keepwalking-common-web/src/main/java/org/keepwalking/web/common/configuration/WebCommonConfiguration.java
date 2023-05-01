@@ -15,29 +15,17 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.web.common.configuration;
 
-import lombok.extern.slf4j.Slf4j;
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
-import org.keepwalking.sysmgr.convert.dict.DictDataConvert;
-import org.keepwalking.sysmgr.repository.dict.DictDataDO;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
- * 字典数据表 Service 实现类
+ * web配置类
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Service
-@Slf4j
-public class DictDataServiceImpl implements DictDataService {
-
-    @Override
-    public Long createDictData(DictDataCreateReqVO reqVO) {
-        // TODO: 2023/4/30 数据校验
-        DictDataDO dictDataDO = DictDataConvert.INSTANCE.convert(reqVO);
-        // TODO: 2023/4/29 VO转DO插入数据库
-        return null;
-    }
+@ComponentScan(basePackages = "org.keepwalking.web.common")
+public class WebCommonConfiguration {
+    // TODO: 2023/5/1 条件注入安全类防护过滤器
 }

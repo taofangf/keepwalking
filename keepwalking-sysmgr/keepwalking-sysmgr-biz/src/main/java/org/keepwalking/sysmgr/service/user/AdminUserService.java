@@ -15,29 +15,45 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.sysmgr.service.user;
 
-import lombok.extern.slf4j.Slf4j;
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
-import org.keepwalking.sysmgr.convert.dict.DictDataConvert;
-import org.keepwalking.sysmgr.repository.dict.DictDataDO;
-import org.springframework.stereotype.Service;
+import org.keepwalking.sysmgr.controller.user.vo.UserCreateReqVO;
+import org.keepwalking.sysmgr.controller.user.vo.UserUpdateReqVO;
 
 /**
- * 字典数据表 Service 实现类
+ * 系统管理 用户Service
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Service
-@Slf4j
-public class DictDataServiceImpl implements DictDataService {
+public interface AdminUserService {
+    /**
+     * 创建用户
+     *
+     * @param userCreateReqVO {@link UserCreateReqVO}
+     * @return 用户编号
+     */
+    Long createUser(UserCreateReqVO userCreateReqVO);
 
-    @Override
-    public Long createDictData(DictDataCreateReqVO reqVO) {
-        // TODO: 2023/4/30 数据校验
-        DictDataDO dictDataDO = DictDataConvert.INSTANCE.convert(reqVO);
-        // TODO: 2023/4/29 VO转DO插入数据库
-        return null;
-    }
+    /**
+     * 修改用户信息
+     *
+     * @param userUpdateReqVO {@link UserUpdateReqVO}
+     */
+    void updateUser(UserUpdateReqVO userUpdateReqVO);
+
+    /**
+     * 更新用户最后登录信息
+     *
+     * @param id      用户编号
+     * @param loginIp 登录IP地址
+     */
+    void updateUserLogin(Long id, String loginIp);
+
+    /**
+     * 删除用户
+     *
+     * @param id 用户ID
+     */
+    void deleteUser(Long id);
 }

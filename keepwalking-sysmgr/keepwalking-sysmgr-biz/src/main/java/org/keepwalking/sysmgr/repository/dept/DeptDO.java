@@ -15,63 +15,63 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.repository.dict;
+package org.keepwalking.sysmgr.repository.dept;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.keepwalking.sysmgr.repository.base.BaseDO;
+import org.keepwalking.sysmgr.repository.user.AdminUserDO;
 
 /**
- * 字典数据表
+ * 部门表
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@TableName("system_dict_data")
+@TableName(value = "system_dept")
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class DictDataDO {
+public class DeptDO extends BaseDO {
+    private static final long serialVersionUID = -3910556510892890480L;
     /**
-     * 字典数据编号
+     * 部门ID
      */
     @TableId
     private Long id;
     /**
-     * 字典排序
+     * 部门名称
+     */
+    private String name;
+    /**
+     * 父部门ID
+     * <p>
+     * 关联 {@link #id}
+     */
+    private Long parentId;
+    /**
+     * 显示顺序
      */
     private Integer sort;
     /**
-     * 字典标签
+     * 负责人
+     * <p>
+     * 关联 {@link AdminUserDO#getId()}
      */
-    private String label;
+    private Long leaderUserId;
     /**
-     * 字典值
+     * 联系电话
      */
-    private String value;
+    private String phone;
     /**
-     * 字典类型
+     * 邮箱
      */
-    private String dictType;
+    private String email;
     /**
-     * 状态
+     * 部门状态
      * <p>
      * 枚举 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
      */
     private Integer status;
-    /**
-     * 颜色类型
-     * <p>
-     * 对应到 element-ui 为 default、primary、success、info、warning、danger
-     */
-    private String colorType;
-    /**
-     * css 样式
-     */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
-    private String cssClass;
-    /**
-     * 备注
-     */
-    private String remark;
 }

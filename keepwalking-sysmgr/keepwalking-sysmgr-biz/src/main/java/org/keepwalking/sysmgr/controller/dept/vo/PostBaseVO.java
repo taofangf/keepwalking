@@ -15,22 +15,45 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.sysmgr.controller.dept.vo;
 
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
+import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * 字典数据表 Service
+ * 岗位基础VO
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public interface DictDataService {
+@Data
+public class PostBaseVO {
     /**
-     * 创建字典数据
-     *
-     * @param reqVO {@link DictDataCreateReqVO}
-     * @return 字典数据编号
+     * 岗位名称
      */
-    Long createDictData(DictDataCreateReqVO reqVO);
+    @NotBlank(message = "岗位名称不能为空")
+    @Size(max = 50, message = "岗位名称长度不能超过50个字符")
+    private String name;
+    /**
+     * 岗位编码
+     */
+    @NotBlank(message = "岗位编码不能为空")
+    @Size(max = 64, message = "岗位编码长度不能超过64个字符")
+    private String code;
+    /**
+     * 显示顺序
+     */
+    @NotNull(message = "显示顺序不能为空")
+    private Integer sort;
+    /**
+     * 状态{@link org.keepwalking.common.core.enums.CommonStatusEnum}
+     */
+    private Integer status;
+    /**
+     * 备注
+     */
+    private String remark;
 }

@@ -15,63 +15,49 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.repository.dict;
+package org.keepwalking.sysmgr.repository.base;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
+import org.apache.ibatis.type.JdbcType;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * 字典数据表
+ * 基础DO对象
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@TableName("system_dict_data")
 @Data
-public class DictDataDO {
+public class BaseDO implements Serializable {
+    private static final long serialVersionUID = 6459988021260500828L;
     /**
-     * 字典数据编号
+     * 创建时间
      */
-    @TableId
-    private Long id;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
     /**
-     * 字典排序
+     * 最后更新时间
      */
-    private Integer sort;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
     /**
-     * 字典标签
+     * 创建者
      */
-    private String label;
+    @TableField(fill = FieldFill.INSERT, jdbcType = JdbcType.VARCHAR)
+    private String creator;
     /**
-     * 字典值
+     * 更新者
      */
-    private String value;
+    @TableField(fill = FieldFill.INSERT_UPDATE, jdbcType = JdbcType.VARCHAR)
+    private String updater;
     /**
-     * 字典类型
+     * 是否删除
      */
-    private String dictType;
-    /**
-     * 状态
-     * <p>
-     * 枚举 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
-     */
-    private Integer status;
-    /**
-     * 颜色类型
-     * <p>
-     * 对应到 element-ui 为 default、primary、success、info、warning、danger
-     */
-    private String colorType;
-    /**
-     * css 样式
-     */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
-    private String cssClass;
-    /**
-     * 备注
-     */
-    private String remark;
+    @TableLogic
+    private Boolean deleted;
 }

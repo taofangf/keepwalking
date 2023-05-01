@@ -15,63 +15,64 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.repository.dict;
+package org.keepwalking.sysmgr.repository.permission;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.keepwalking.sysmgr.repository.base.BaseDO;
+
+import java.util.Set;
 
 /**
- * 字典数据表
+ * 角色DO
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@TableName("system_dict_data")
+@TableName("system_role")
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class DictDataDO {
+public class RoleDO extends BaseDO {
+    private static final long serialVersionUID = 3408674840549826550L;
     /**
-     * 字典数据编号
+     * 角色ID
      */
     @TableId
     private Long id;
     /**
-     * 字典排序
+     * 角色名称
+     */
+    private String name;
+    /**
+     * 角色标识
+     */
+    private String code;
+    /**
+     * 角色排序
      */
     private Integer sort;
     /**
-     * 字典标签
-     */
-    private String label;
-    /**
-     * 字典值
-     */
-    private String value;
-    /**
-     * 字典类型
-     */
-    private String dictType;
-    /**
-     * 状态
-     * <p>
-     * 枚举 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
+     * 角色状态 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
      */
     private Integer status;
     /**
-     * 颜色类型
-     * <p>
-     * 对应到 element-ui 为 default、primary、success、info、warning、danger
+     * 角色类型 {@link org.keepwalking.sysmgr.enums.RoleTypeEnum}
      */
-    private String colorType;
-    /**
-     * css 样式
-     */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
-    private String cssClass;
+    private Integer type;
     /**
      * 备注
      */
     private String remark;
+    /**
+     * 数据范围 {@link org.keepwalking.sysmgr.enums.DataScopeEnum}
+     */
+    private Integer dataScope;
+    /**
+     * 数据范围(指定部门数组)
+     * <p>
+     * 适用于 {@link #dataScope} 的值为 {@link org.keepwalking.sysmgr.enums.DataScopeEnum#DEPT_CUSTOM} 时
+     */
+    private Set<Long> dataScopeDeptIds;
 }

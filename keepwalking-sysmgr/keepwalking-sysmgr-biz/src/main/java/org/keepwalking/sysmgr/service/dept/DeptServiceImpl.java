@@ -15,29 +15,53 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.sysmgr.service.dept;
 
 import lombok.extern.slf4j.Slf4j;
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
-import org.keepwalking.sysmgr.convert.dict.DictDataConvert;
-import org.keepwalking.sysmgr.repository.dict.DictDataDO;
+import org.keepwalking.sysmgr.controller.dept.vo.DeptCreateReqVO;
+import org.keepwalking.sysmgr.controller.dept.vo.DeptListReqVO;
+import org.keepwalking.sysmgr.controller.dept.vo.DeptUpdateReqVO;
+import org.keepwalking.sysmgr.repository.dept.DeptDO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
- * 字典数据表 Service 实现类
+ * 部门Service实现类
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Service
 @Slf4j
-public class DictDataServiceImpl implements DictDataService {
+public class DeptServiceImpl implements DeptService {
+    @Override
+    public Long createDept(DeptCreateReqVO deptCreateReqVO) {
+        return null;
+    }
 
     @Override
-    public Long createDictData(DictDataCreateReqVO reqVO) {
-        // TODO: 2023/4/30 数据校验
-        DictDataDO dictDataDO = DictDataConvert.INSTANCE.convert(reqVO);
-        // TODO: 2023/4/29 VO转DO插入数据库
+    public void updateDept(DeptUpdateReqVO deptUpdateReqVO) {
+
+    }
+
+    @Override
+    public void deleteDept(Long id) {
+
+    }
+
+    @Override
+    public List<DeptDO> getDeptList(DeptListReqVO deptListReqVO) {
+        return null;
+    }
+
+    @Override
+    public List<DeptDO> getDeptListByParentIdFromCache(Long parentId, boolean recursive) {
+        return null;
+    }
+
+    @Override
+    public DeptDO getDept(Long id) {
         return null;
     }
 }

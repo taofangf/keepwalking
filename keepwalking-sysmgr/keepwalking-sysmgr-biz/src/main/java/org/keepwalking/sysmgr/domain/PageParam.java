@@ -15,22 +15,42 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.sysmgr.domain;
 
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
+import lombok.Data;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
- * 字典数据表 Service
+ * 分页参数
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public interface DictDataService {
+@Data
+public class PageParam implements Serializable {
     /**
-     * 创建字典数据
-     *
-     * @param reqVO {@link DictDataCreateReqVO}
-     * @return 字典数据编号
+     * 页码，默认为1
      */
-    Long createDictData(DictDataCreateReqVO reqVO);
+    public static final Integer PAGE_NO = 1;
+    /**
+     * 每页条数，默认为10
+     */
+    public static final Integer PAGE_SIZE = 1;
+    /**
+     * 页码
+     */
+    @NotNull(message = "页码不能为空")
+    @Min(value = 1, message = "页码最小值为 1")
+    private Integer pageNo = PAGE_NO;
+    /**
+     * 每页条数
+     */
+    @NotNull(message = "每页条数不能为空")
+    @Min(value = 1, message = "每页条数最小值为 1")
+    @Max(value = 100, message = "每页条数最大值为 100")
+    private Integer pageSize = PAGE_SIZE;
 }

@@ -41,10 +41,11 @@
 
     <modules>
         <module>keepwalking-dependencies</module>
-        <module>keepwalking-common</module>
         <module>keepwalking-bom</module>
-        <module>keepwalking-utils</module>
+        <module>keepwalking-common</module>
+        <module>keepwalking-common-web</module>
         <module>keepwalking-sysmgr</module>
+        <module>keepwalking-utils</module>
     </modules>
 
     <scm>

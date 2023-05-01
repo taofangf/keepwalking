@@ -15,29 +15,32 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.dict;
+package org.keepwalking.sysmgr.controller.dept.vo;
 
-import lombok.extern.slf4j.Slf4j;
-import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
-import org.keepwalking.sysmgr.convert.dict.DictDataConvert;
-import org.keepwalking.sysmgr.repository.dict.DictDataDO;
-import org.springframework.stereotype.Service;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
- * 字典数据表 Service 实现类
+ * 部门信息返回VO
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Service
-@Slf4j
-public class DictDataServiceImpl implements DictDataService {
-
-    @Override
-    public Long createDictData(DictDataCreateReqVO reqVO) {
-        // TODO: 2023/4/30 数据校验
-        DictDataDO dictDataDO = DictDataConvert.INSTANCE.convert(reqVO);
-        // TODO: 2023/4/29 VO转DO插入数据库
-        return null;
-    }
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class DeptRespVO extends DeptBaseVO {
+    /**
+     * 部门ID
+     */
+    private Long id;
+    /**
+     * 部门状态 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
+     */
+    private Integer status;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 }
