@@ -15,43 +15,25 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.domain;
+package org.keepwalking.sysmgr.controller.dict.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
- * 分页参数
+ * 字典数据表更新VO
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Data
-public class PageParam implements Serializable {
-    private static final long serialVersionUID = -4793232020555849160L;
+@EqualsAndHashCode(callSuper = true)
+public class DictDataUpdateReqVO extends DictDataBaseVO {
     /**
-     * 页码，默认为1
+     * 字典数据编号
      */
-    public static final Integer PAGE_NO = 1;
-    /**
-     * 每页条数，默认为10
-     */
-    public static final Integer PAGE_SIZE = 1;
-    /**
-     * 页码
-     */
-    @NotNull(message = "页码不能为空")
-    @Min(value = 1, message = "页码最小值为 1")
-    private Integer pageNo = PAGE_NO;
-    /**
-     * 每页条数
-     */
-    @NotNull(message = "每页条数不能为空")
-    @Min(value = 1, message = "每页条数最小值为 1")
-    @Max(value = 100, message = "每页条数最大值为 100")
-    private Integer pageSize = PAGE_SIZE;
+    @NotNull(message = "字典数据编号不能为空")
+    private Long id;
 }

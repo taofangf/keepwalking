@@ -15,43 +15,38 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.domain;
+package org.keepwalking.sysmgr.controller.dict.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.keepwalking.sysmgr.domain.PageParam;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.Size;
 
 /**
- * 分页参数
+ * 字典分页列表
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Data
-public class PageParam implements Serializable {
-    private static final long serialVersionUID = -4793232020555849160L;
+@EqualsAndHashCode(callSuper = true)
+public class DictDataPageReqVO extends PageParam {
+    private static final long serialVersionUID = -5101443284664308269L;
     /**
-     * 页码，默认为1
+     * 字典标签
      */
-    public static final Integer PAGE_NO = 1;
+    @Size(max = 100, message = "字典标签长度不能超过100个字符")
+    private String label;
+
     /**
-     * 每页条数，默认为10
+     * 字典类型（模糊匹配）
      */
-    public static final Integer PAGE_SIZE = 1;
+    @Size(max = 100, message = "字典类型类型长度不能超过100个字符")
+    private String dictType;
+
     /**
-     * 页码
+     * 字典状态 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
      */
-    @NotNull(message = "页码不能为空")
-    @Min(value = 1, message = "页码最小值为 1")
-    private Integer pageNo = PAGE_NO;
-    /**
-     * 每页条数
-     */
-    @NotNull(message = "每页条数不能为空")
-    @Min(value = 1, message = "每页条数最小值为 1")
-    @Max(value = 100, message = "每页条数最大值为 100")
-    private Integer pageSize = PAGE_SIZE;
+    private Integer status;
 }

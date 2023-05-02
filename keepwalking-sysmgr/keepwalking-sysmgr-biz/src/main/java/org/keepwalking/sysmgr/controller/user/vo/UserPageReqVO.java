@@ -15,43 +15,49 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.domain;
+package org.keepwalking.sysmgr.controller.user.vo;
 
+import cn.hutool.core.date.DatePattern;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.keepwalking.sysmgr.domain.PageParam;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * 分页参数
+ * 分页用户信息
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Data
-public class PageParam implements Serializable {
-    private static final long serialVersionUID = -4793232020555849160L;
+@EqualsAndHashCode(callSuper = true)
+public class UserPageReqVO extends PageParam {
+    private static final long serialVersionUID = 585143109604512597L;
     /**
-     * 页码，默认为1
+     * 用户账号（模糊匹配）
      */
-    public static final Integer PAGE_NO = 1;
+    private String username;
+
     /**
-     * 每页条数，默认为10
+     * 手机号码（模糊匹配）
      */
-    public static final Integer PAGE_SIZE = 1;
+    private String mobile;
+
     /**
-     * 页码
+     * 用户状态 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
      */
-    @NotNull(message = "页码不能为空")
-    @Min(value = 1, message = "页码最小值为 1")
-    private Integer pageNo = PAGE_NO;
+    private Integer status;
+
     /**
-     * 每页条数
+     * 创建时间
      */
-    @NotNull(message = "每页条数不能为空")
-    @Min(value = 1, message = "每页条数最小值为 1")
-    @Max(value = 100, message = "每页条数最大值为 100")
-    private Integer pageSize = PAGE_SIZE;
+    @DateTimeFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+    private LocalDateTime[] createTime;
+
+    /**
+     * 部门编号
+     */
+    private Long deptId;
 }

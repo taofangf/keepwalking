@@ -17,6 +17,8 @@
 
 package org.keepwalking.common.core.exception;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.keepwalking.common.core.Result;
 
 /**
@@ -25,16 +27,19 @@ import org.keepwalking.common.core.Result;
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class BaseException extends RuntimeException {
+    private static final long serialVersionUID = 8351331510330925482L;
     /**
      * 异常错误码
      */
-    private final String code;
+    private String code;
 
     /**
      * 异常错误信息
      */
-    private final String message;
+    private String message;
 
     /**
      * 基础异常构造

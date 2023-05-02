@@ -15,24 +15,49 @@
  * limitations under the License.
  */
 
-package org.keepwalking.common.core.exception;
+package org.keepwalking.sysmgr.service.dict;
 
-import org.keepwalking.common.core.Result;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
- * Service异常
+ * 字典数据表单元测试
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public class ServiceException extends BaseException {
-    private static final long serialVersionUID = 9019114635402997074L;
+public class DictDataServiceImplTest {
 
-    public ServiceException(String code, String message) {
-        super(code, message);
+    @Test
+    public void createDictData() {
     }
 
-    public ServiceException(Result result) {
-        super(result);
+    @Test
+    public void updateDictData() {
+    }
+
+    @Test
+    public void deleteDictData() {
+    }
+
+    @Test
+    public void getDictDataList() {
+    }
+
+    @Test
+    public void getDictDataPage() {
+    }
+
+    @Test
+    public void getDictData() {
+    }
+
+    @Test
+    public void testGetDictData() {
+    }
+
+    @Test
+    public void validateDictDataList() {
     }
 }

@@ -29,12 +29,17 @@
     <artifactId>keepwalking-sysmgr-biz</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
+    <description>后台管理系统</description>
 
     <dependencies>
         <dependency>
             <groupId>org.keepwalking</groupId>
             <artifactId>keepwalking-sysmgr-api</artifactId>
             <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -51,6 +56,11 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

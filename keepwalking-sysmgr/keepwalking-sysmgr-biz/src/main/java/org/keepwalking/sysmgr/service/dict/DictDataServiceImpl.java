@@ -18,10 +18,16 @@
 package org.keepwalking.sysmgr.service.dict;
 
 import lombok.extern.slf4j.Slf4j;
+import org.keepwalking.common.core.domain.PageResult;
 import org.keepwalking.sysmgr.controller.dict.vo.DictDataCreateReqVO;
+import org.keepwalking.sysmgr.controller.dict.vo.DictDataPageReqVO;
+import org.keepwalking.sysmgr.controller.dict.vo.DictDataUpdateReqVO;
 import org.keepwalking.sysmgr.convert.dict.DictDataConvert;
 import org.keepwalking.sysmgr.repository.dict.DictDataDO;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 字典数据表 Service 实现类
@@ -39,5 +45,40 @@ public class DictDataServiceImpl implements DictDataService {
         DictDataDO dictDataDO = DictDataConvert.INSTANCE.convert(reqVO);
         // TODO: 2023/4/29 VO转DO插入数据库
         return null;
+    }
+
+    @Override
+    public void updateDictData(DictDataUpdateReqVO updateReqVO) {
+        
+    }
+
+    @Override
+    public void deleteDictData(Long id) {
+
+    }
+
+    @Override
+    public List<DictDataDO> getDictDataList() {
+        return null;
+    }
+
+    @Override
+    public PageResult<DictDataDO> getDictDataPage(DictDataPageReqVO dataPageReqVO) {
+        return null;
+    }
+
+    @Override
+    public DictDataDO getDictData(Long id) {
+        return null;
+    }
+
+    @Override
+    public DictDataDO getDictData(String dictType, String value) {
+        return null;
+    }
+
+    @Override
+    public void validateDictDataList(String dictType, Collection<String> values) {
+
     }
 }

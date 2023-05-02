@@ -15,24 +15,45 @@
  * limitations under the License.
  */
 
-package org.keepwalking.common.core.exception;
+package org.keepwalking.sysmgr.service.permission;
 
-import org.keepwalking.common.core.Result;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
- * Service异常
+ * 菜单Service单元测试
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public class ServiceException extends BaseException {
-    private static final long serialVersionUID = 9019114635402997074L;
+public class MenuServiceImplTest {
 
-    public ServiceException(String code, String message) {
-        super(code, message);
+    @Test
+    public void createMenu() {
     }
 
-    public ServiceException(Result result) {
-        super(result);
+    @Test
+    public void updateMenu() {
+    }
+
+    @Test
+    public void deleteMenu() {
+    }
+
+    @Test
+    public void getMenuList() {
+    }
+
+    @Test
+    public void testGetMenuList() {
+    }
+
+    @Test
+    public void getMenu() {
+    }
+
+    @Test
+    public void getMenuListByPermissionFromCache() {
     }
 }

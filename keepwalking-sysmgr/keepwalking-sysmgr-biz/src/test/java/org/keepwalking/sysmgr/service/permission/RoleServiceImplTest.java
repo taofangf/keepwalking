@@ -15,24 +15,45 @@
  * limitations under the License.
  */
 
-package org.keepwalking.common.core.exception;
+package org.keepwalking.sysmgr.service.permission;
 
-import org.keepwalking.common.core.Result;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
- * Service异常
+ * 角色Service单元测试
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-public class ServiceException extends BaseException {
-    private static final long serialVersionUID = 9019114635402997074L;
+public class RoleServiceImplTest {
 
-    public ServiceException(String code, String message) {
-        super(code, message);
+    @Test
+    public void createRole() {
     }
 
-    public ServiceException(Result result) {
-        super(result);
+    @Test
+    public void updateRole() {
+    }
+
+    @Test
+    public void deleteRole() {
+    }
+
+    @Test
+    public void getRole() {
+    }
+
+    @Test
+    public void getRoleFromCache() {
+    }
+
+    @Test
+    public void getRolePage() {
+    }
+
+    @Test
+    public void validateRoleList() {
     }
 }

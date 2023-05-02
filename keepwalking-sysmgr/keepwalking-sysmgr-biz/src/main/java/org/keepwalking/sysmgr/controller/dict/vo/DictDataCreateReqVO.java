@@ -18,12 +18,15 @@
 package org.keepwalking.sysmgr.controller.dict.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 字典数据创建VO
+ *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class DictDataCreateReqVO extends DictDataBaseVO {
 }
