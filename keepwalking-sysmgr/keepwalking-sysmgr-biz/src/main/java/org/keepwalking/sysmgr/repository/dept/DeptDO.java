@@ -17,6 +17,7 @@
 
 package org.keepwalking.sysmgr.repository.dept;
 
+import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -30,7 +31,8 @@ import org.keepwalking.sysmgr.repository.user.AdminUserDO;
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@TableName(value = "system_dept")
+@TableName("system_dept")
+@KeySequence("system_dept_seq")
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class DeptDO extends BaseDO {

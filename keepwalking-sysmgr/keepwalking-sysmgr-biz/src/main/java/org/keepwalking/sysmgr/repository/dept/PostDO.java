@@ -17,6 +17,7 @@
 
 package org.keepwalking.sysmgr.repository.dept;
 
+import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -30,6 +31,7 @@ import org.keepwalking.sysmgr.repository.base.BaseDO;
  * @since 1.0
  */
 @TableName("system_post")
+@KeySequence("system_post_seq")
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class PostDO extends BaseDO {

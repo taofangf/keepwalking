@@ -17,11 +17,39 @@
 
 package org.keepwalking.sysmgr.controller.permission.vo.role;
 
+import cn.hutool.core.date.DatePattern;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.keepwalking.sysmgr.domain.PageParam;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 /**
+ * 角色分页
+ *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
- * @since
+ * @since 1.0
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class RolePageReqVO extends PageParam {
+    private static final long serialVersionUID = -2496838862754930436L;
+    /**
+     * 角色名称（模糊匹配）
+     */
+    private String name;
+    /**
+     * 角色标识（模糊匹配）
+     */
+    private String code;
+    /**
+     * 角色状态 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
+     */
+    private Integer status;
+    /**
+     * 创建时间
+     */
+    @DateTimeFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+    private LocalDateTime[] createTime;
 }

@@ -17,10 +17,7 @@
 
 package org.keepwalking.sysmgr.repository.dict;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 /**
@@ -30,6 +27,7 @@ import lombok.Data;
  * @since 1.0
  */
 @TableName("system_dict_data")
+@KeySequence("system_dict_data_seq")
 @Data
 public class DictDataDO {
     /**

@@ -15,87 +15,56 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.repository.user;
+package org.keepwalking.sysmgr.repository.dict;
 
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.keepwalking.sysmgr.repository.base.BaseDO;
 
 import java.time.LocalDateTime;
 
 /**
- * 系统管理用户DO
+ * 字典类型表
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@TableName("system_users")
-@KeySequence("system_user_seq")
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@Builder
+@TableName("system_dict_type")
+@KeySequence("system_dict_type_seq")
 @Data
-public class AdminUserDO extends BaseDO {
-    private static final long serialVersionUID = -1577522107896398490L;
+@Builder
+@EqualsAndHashCode(callSuper = true)
+public class DictTypeDO extends BaseDO {
+    private static final long serialVersionUID = -5015435105419742387L;
     /**
-     * 用户ID
+     * 字典主键
      */
     @TableId
     private Long id;
     /**
-     * 用户账号
+     * 字典名称
      */
-    private String username;
+    private String name;
     /**
-     * 密码（加密后的）
+     * 字典类型
      */
-    private String password;
+    private String type;
     /**
-     * 用户昵称
-     */
-    private String nickname;
-    /**
-     * 备注
-     */
-    private String remark;
-    /**
-     * 部门 ID
-     */
-    private Long deptId;
-    // TODO: 2023/5/1 岗位编号数组属性暂时没有添加
-    /**
-     * 用户邮箱
-     */
-    private String email;
-    /**
-     * 手机号码
-     */
-    private String mobile;
-    /**
-     * 用户性别
-     * <p>
-     * 枚举类 {@link org.keepwalking.sysmgr.enums.SexEnum}
-     */
-    private Integer sex;
-    /**
-     * 用户头像
-     */
-    private String avatar;
-    /**
-     * 帐号状态
+     * 状态
      * <p>
      * 枚举 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
      */
     private Integer status;
     /**
-     * 最后登录IP
+     * 备注
      */
-    private String loginIp;
+    private String remark;
     /**
-     * 最后登录时间
+     * 删除时间
      */
-    private LocalDateTime loginDate;
+    private LocalDateTime deletedTime;
 }
