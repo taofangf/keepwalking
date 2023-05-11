@@ -15,25 +15,32 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.controller.permission.vo.role;
+package org.keepwalking.sysmgr.controller.dict.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * 角色修改VO
+ * 字典导出
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class RoleUpdateReqVO extends RoleBaseVO {
+public class DictDataExportReqVO {
     /**
-     * 角色编号
+     * 字典标签
      */
-    @NotNull(message = "角色编号不能为空")
-    private Long id;
+    @Size(max = 100, message = "字典标签长度不能超过100个字符")
+    private String label;
+    /**
+     * 字典类型,模糊匹配
+     */
+    @Size(max = 100, message = "字典类型类型长度不能超过100个字符")
+    private String dictType;
+    /**
+     * 字典状态 {@link org.keepwalking.common.core.enums.CommonStatusEnum}
+     */
+    private Integer status;
 }

@@ -15,25 +15,37 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.controller.permission.vo.role;
+package org.keepwalking.sysmgr.convert.dept;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import javax.validation.constraints.NotNull;
+import org.keepwalking.sysmgr.controller.dept.vo.DeptCreateReqVO;
+import org.keepwalking.sysmgr.controller.dept.vo.DeptUpdateReqVO;
+import org.keepwalking.sysmgr.repository.dept.DeptDO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 /**
- * 角色修改VO
+ * 部门模块对象转换
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class RoleUpdateReqVO extends RoleBaseVO {
+@Mapper
+public interface DeptConvert {
+    DeptConvert INSTANCE = Mappers.getMapper(DeptConvert.class);
+
     /**
-     * 角色编号
+     * DeptCreateReqVO 转 DeptDO
+     *
+     * @param deptCreateReqVO {@link DeptCreateReqVO}
+     * @return {@link DeptDO}
      */
-    @NotNull(message = "角色编号不能为空")
-    private Long id;
+    DeptDO convert(DeptCreateReqVO deptCreateReqVO);
+
+    /**
+     * DeptUpdateReqVO 转 DeptDO
+     *
+     * @param deptUpdateReqVO {@link DeptUpdateReqVO}
+     * @return {@link DeptDO}
+     */
+    DeptDO convert(DeptUpdateReqVO deptUpdateReqVO);
 }

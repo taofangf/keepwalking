@@ -17,14 +17,20 @@
 
 package org.keepwalking.sysmgr.service.dept;
 
+import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.keepwalking.sysmgr.controller.dept.vo.DeptCreateReqVO;
 import org.keepwalking.sysmgr.controller.dept.vo.DeptListReqVO;
 import org.keepwalking.sysmgr.controller.dept.vo.DeptUpdateReqVO;
+import org.keepwalking.sysmgr.convert.dept.DeptConvert;
+import org.keepwalking.sysmgr.enums.DeptIdEnum;
 import org.keepwalking.sysmgr.repository.dept.DeptDO;
+import org.keepwalking.sysmgr.repository.dept.DeptMapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 部门Service实现类
@@ -35,33 +41,52 @@ import java.util.List;
 @Service
 @Slf4j
 public class DeptServiceImpl implements DeptService {
+    @Resource
+    private DeptMapper deptMapper;
+
     @Override
     public Long createDept(DeptCreateReqVO deptCreateReqVO) {
-        return null;
+        if (ObjectUtil.isNull(deptCreateReqVO.getParentId())) {
+            deptCreateReqVO.setParentId(DeptIdEnum.ROOT.getId());
+        }
+        // TODO: 2023/5/4 数据校验逻辑
+        DeptDO deptDO = DeptConvert.INSTANCE.convert(deptCreateReqVO);
+        deptMapper.insert(deptDO);
+        return deptDO.getId();
     }
 
     @Override
     public void updateDept(DeptUpdateReqVO deptUpdateReqVO) {
-
+        if (ObjectUtil.isNull(deptUpdateReqVO.getParentId())) {
+            deptUpdateReqVO.setParentId(DeptIdEnum.ROOT.getId());
+        }
+        // TODO: 2023/5/4 数据校验
+        DeptDO deptDO = DeptConvert.INSTANCE.convert(deptUpdateReqVO);
+        deptMapper.updateById(deptDO);
     }
 
     @Override
     public void deleteDept(Long id) {
-
+        // TODO: 2023/5/4 数据校验
+        if (deptMapper.selectCountByParentId(id) > 0) {
+            // TODO: 2023/5/4 业务异常
+        }
+        deptMapper.deleteById(id);
     }
 
     @Override
     public List<DeptDO> getDeptList(DeptListReqVO deptListReqVO) {
-        return null;
+        return deptMapper.selectList(deptListReqVO);
     }
 
     @Override
     public List<DeptDO> getDeptListByParentIdFromCache(Long parentId, boolean recursive) {
+        // TODO: 2023/5/4 缓存后续处理，先实现基础功能
         return null;
     }
 
     @Override
     public DeptDO getDept(Long id) {
-        return null;
+        return deptMapper.selectById(id);
     }
 }

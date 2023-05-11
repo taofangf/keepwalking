@@ -18,9 +18,12 @@
 package org.keepwalking.sysmgr.repository.dept;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.keepwalking.sysmgr.controller.dept.vo.PostListReqVO;
 
 import java.util.Collection;
 import java.util.List;
@@ -63,8 +66,22 @@ public interface PostMapper extends BaseMapper<PostDO> {
      *
      * @param code 岗位编码
      * @return 岗位信息
+     *
      */
     default PostDO selectByCode(String code) {
         return selectOne(new LambdaQueryWrapper<PostDO>().eq(PostDO::getCode, code));
+    }
+
+    /**
+     * 查询岗位列表
+     *
+     * @param vo
+     * @return 岗位列表
+     */
+    default List<PostDO> selectList(PostListReqVO vo) {
+        return selectList(new LambdaQueryWrapper<PostDO>()
+                .like(StrUtil.isNotEmpty(vo.getCode()), PostDO::getCode, vo.getCode())
+                .like(StrUtil.isNotEmpty(vo.getName()), PostDO::getName, vo.getName())
+                .eq(ObjectUtil.isNotEmpty(vo.getStatus()), PostDO::getCode, vo.getCode()));
     }
 }

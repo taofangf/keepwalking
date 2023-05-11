@@ -41,6 +41,7 @@
 
     <modules>
         <module>keepwalking-dependencies</module>
+        <module>keepwalking-parent</module>
         <module>keepwalking-bom</module>
         <module>keepwalking-common</module>
         <module>keepwalking-common-web</module>

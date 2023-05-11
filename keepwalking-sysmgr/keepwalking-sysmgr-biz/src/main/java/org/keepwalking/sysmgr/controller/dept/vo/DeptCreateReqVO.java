@@ -18,6 +18,7 @@
 package org.keepwalking.sysmgr.controller.dept.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 部门创建VO
@@ -26,5 +27,6 @@ import lombok.Data;
  * @since 1.0
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class DeptCreateReqVO extends DeptBaseVO {
 }

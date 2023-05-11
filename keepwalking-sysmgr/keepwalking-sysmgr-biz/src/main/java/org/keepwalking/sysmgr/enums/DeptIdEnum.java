@@ -15,25 +15,27 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.controller.permission.vo.role;
+package org.keepwalking.sysmgr.enums;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
- * 角色修改VO
+ * 部门编号枚举
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class RoleUpdateReqVO extends RoleBaseVO {
+@Getter
+@AllArgsConstructor
+public enum DeptIdEnum {
     /**
-     * 角色编号
+     * 根部门ID
      */
-    @NotNull(message = "角色编号不能为空")
-    private Long id;
+    ROOT(0L),
+    ;
+    /**
+     * 部门ID
+     */
+    private final Long id;
 }

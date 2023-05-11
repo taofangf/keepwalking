@@ -15,25 +15,19 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.controller.permission.vo.role;
+package org.keepwalking.sysmgr.repository.dict;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import javax.validation.constraints.NotNull;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 角色修改VO
+ * 字典类型表CRUD
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class RoleUpdateReqVO extends RoleBaseVO {
-    /**
-     * 角色编号
-     */
-    @NotNull(message = "角色编号不能为空")
-    private Long id;
+@Mapper
+public interface DictTypeMapper extends BaseMapper<DictTypeDO> {
+    // TODO: 2023/5/3 分页查询待统一处理
+
 }

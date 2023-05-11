@@ -21,9 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.keepwalking.sysmgr.controller.dept.vo.PostCreateReqVO;
 import org.keepwalking.sysmgr.controller.dept.vo.PostListReqVO;
 import org.keepwalking.sysmgr.controller.dept.vo.PostUpdateReqVO;
+import org.keepwalking.sysmgr.convert.dept.PostConvert;
 import org.keepwalking.sysmgr.repository.dept.PostDO;
+import org.keepwalking.sysmgr.repository.dept.PostMapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,24 +39,33 @@ import java.util.List;
 @Service
 @Slf4j
 public class PostServiceImpl implements PostService {
+    @Resource
+    private PostMapper postMapper;
+
     @Override
     public Long createPost(PostCreateReqVO postCreateReqVO) {
-        return null;
+        // TODO: 2023/5/6 校验请求数据
+        PostDO post = PostConvert.INSTANCE.convert(postCreateReqVO);
+        postMapper.insert(post);
+        return post.getId();
     }
 
     @Override
     public void updatePost(PostUpdateReqVO postUpdateReqVO) {
-
+        // TODO: 2023/5/6 校验请求数据
+        PostDO post = PostConvert.INSTANCE.convert(postUpdateReqVO);
+        postMapper.updateById(post);
     }
 
     @Override
     public void deletePost(Long id) {
-
+        // TODO: 2023/5/6 校验请求数据
+        postMapper.deleteById(id);
     }
 
     @Override
     public List<PostDO> getPostList(PostListReqVO postListReqVO) {
-        return null;
+        return postMapper.selectList(postListReqVO);
     }
 
     @Override
