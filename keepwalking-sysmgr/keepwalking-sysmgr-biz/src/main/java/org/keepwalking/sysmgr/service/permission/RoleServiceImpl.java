@@ -23,8 +23,10 @@ import org.keepwalking.sysmgr.controller.permission.vo.role.RoleCreateReqVO;
 import org.keepwalking.sysmgr.controller.permission.vo.role.RolePageReqVO;
 import org.keepwalking.sysmgr.controller.permission.vo.role.RoleUpdateReqVO;
 import org.keepwalking.sysmgr.repository.permission.RoleDO;
+import org.keepwalking.sysmgr.repository.permission.RoleMapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 
 /**
@@ -36,6 +38,9 @@ import java.util.Collection;
 @Service
 @Slf4j
 public class RoleServiceImpl implements RoleService {
+    @Resource
+    private RoleMapper roleMapper;
+
     @Override
     public Long createRole(RoleCreateReqVO roleCreateReqVO, Integer roleType) {
         return null;

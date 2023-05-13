@@ -39,12 +39,12 @@ import java.util.List;
 public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
-    public Long createUser(UserCreateReqVO userCreateReqVO) {
+    public Long createUser(UserCreateReqVO vo) {
         return null;
     }
 
     @Override
-    public void updateUser(UserUpdateReqVO userUpdateReqVO) {
+    public void updateUser(UserUpdateReqVO vo) {
 
     }
 
@@ -84,7 +84,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public PageResult<AdminUserDO> getUserPage(UserPageReqVO userPageReqVO) {
+    public PageResult<AdminUserDO> getUserPage(UserPageReqVO vo) {
         return null;
     }
 

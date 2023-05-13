@@ -18,6 +18,7 @@
 package org.keepwalking.sysmgr.service.dept;
 
 import org.keepwalking.sysmgr.controller.dept.vo.PostCreateReqVO;
+import org.keepwalking.sysmgr.controller.dept.vo.PostExportReqVO;
 import org.keepwalking.sysmgr.controller.dept.vo.PostListReqVO;
 import org.keepwalking.sysmgr.controller.dept.vo.PostUpdateReqVO;
 import org.keepwalking.sysmgr.repository.dept.PostDO;
@@ -35,17 +36,17 @@ public interface PostService {
     /**
      * 创建岗位
      *
-     * @param postCreateReqVO {@link PostCreateReqVO}
+     * @param vo {@link PostCreateReqVO}
      * @return 岗位编号
      */
-    Long createPost(PostCreateReqVO postCreateReqVO);
+    Long createPost(PostCreateReqVO vo);
 
     /**
      * 更新岗位
      *
-     * @param postUpdateReqVO {@link PostUpdateReqVO}
+     * @param vo {@link PostUpdateReqVO}
      */
-    void updatePost(PostUpdateReqVO postUpdateReqVO);
+    void updatePost(PostUpdateReqVO vo);
 
     /**
      * 删除岗位
@@ -57,10 +58,10 @@ public interface PostService {
     /**
      * 获取岗位列表
      *
-     * @param postListReqVO {@link PostListReqVO}
+     * @param vo {@link PostExportReqVO}
      * @return {@link PostDO}
      */
-    List<PostDO> getPostList(PostListReqVO postListReqVO);
+    List<PostDO> getPostList(PostExportReqVO vo);
 
     /**
      * 获取岗位信息

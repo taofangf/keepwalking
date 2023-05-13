@@ -15,27 +15,37 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.enums;
+package org.keepwalking.sysmgr.convert.permission;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import org.keepwalking.sysmgr.controller.permission.vo.menu.MenuCreateReqVO;
+import org.keepwalking.sysmgr.controller.permission.vo.menu.MenuUpdateReqVO;
+import org.keepwalking.sysmgr.repository.permission.MenuDO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 /**
- * 部门编号枚举
+ * 菜单相关对象转换
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@Getter
-@AllArgsConstructor
-public enum DeptIdEnum {
+@Mapper
+public interface MenuConvert {
+    MenuConvert INSTANCE = Mappers.getMapper(MenuConvert.class);
+
     /**
-     * 根部门ID
+     * MenuCreateReqVO 转 MenuDO
+     *
+     * @param vo {@link MenuCreateReqVO}
+     * @return {@link MenuDO}
      */
-    ROOT(0L),
-    ;
+    MenuDO convert(MenuCreateReqVO vo);
+
     /**
-     * 部门ID
+     * MenuUpdateReqVO 转 MenuDO
+     *
+     * @param vo {@link MenuUpdateReqVO}
+     * @return {@link MenuDO}
      */
-    private final Long id;
+    MenuDO convert(MenuUpdateReqVO vo);
 }

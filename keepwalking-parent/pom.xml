@@ -67,7 +67,12 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <annotationProcessorPaths>
-                            <!--满足可同时使用Lombok和Mapstruct-->
+                            <!--满足可同时使用spring-boot-configuration-processor Lombok和Mapstruct-->
+                            <path>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-configuration-processor</artifactId>
+                                <version>${spring-boot.version}</version>
+                            </path>
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>

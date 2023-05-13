@@ -34,17 +34,17 @@ public interface DeptService {
     /**
      * 创建部门
      *
-     * @param deptCreateReqVO {@link DeptCreateReqVO}
+     * @param vo {@link DeptCreateReqVO}
      * @return 部门编号
      */
-    Long createDept(DeptCreateReqVO deptCreateReqVO);
+    Long createDept(DeptCreateReqVO vo);
 
     /**
      * 更新部门
      *
-     * @param deptUpdateReqVO {@link DeptUpdateReqVO}
+     * @param vo {@link DeptUpdateReqVO}
      */
-    void updateDept(DeptUpdateReqVO deptUpdateReqVO);
+    void updateDept(DeptUpdateReqVO vo);
 
     /**
      * 删除部门
@@ -56,10 +56,10 @@ public interface DeptService {
     /**
      * 获取部门列表
      *
-     * @param deptListReqVO {@link DeptListReqVO}
+     * @param vo {@link DeptListReqVO}
      * @return {@link DeptDO}
      */
-    List<DeptDO> getDeptList(DeptListReqVO deptListReqVO);
+    List<DeptDO> getDeptList(DeptListReqVO vo);
 
     /**
      * 获取子部门列表

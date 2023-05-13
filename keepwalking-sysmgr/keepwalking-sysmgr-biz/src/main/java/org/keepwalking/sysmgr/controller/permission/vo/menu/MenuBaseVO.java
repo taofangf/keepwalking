@@ -32,6 +32,10 @@ import javax.validation.constraints.Size;
 @Data
 public class MenuBaseVO {
     /**
+     * 菜单编号 根节点
+     */
+    public static final Long MENU_ID_ROOT = 0L;
+    /**
      * 菜单名称
      */
     @NotBlank(message = "菜单名称不能为空")

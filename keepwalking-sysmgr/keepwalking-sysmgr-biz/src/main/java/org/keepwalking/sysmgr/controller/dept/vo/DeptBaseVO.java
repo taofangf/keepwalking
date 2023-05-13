@@ -33,6 +33,10 @@ import javax.validation.constraints.Size;
 @Data
 public class DeptBaseVO {
     /**
+     * 部门ID根节点
+     */
+    public static final Long DEPT_ID_ROOT = 0L;
+    /**
      * 部门名称
      */
     @NotBlank(message = "部门名称不能为空")

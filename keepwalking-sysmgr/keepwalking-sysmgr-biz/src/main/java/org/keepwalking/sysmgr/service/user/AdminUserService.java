@@ -36,17 +36,17 @@ public interface AdminUserService {
     /**
      * 创建用户
      *
-     * @param userCreateReqVO {@link UserCreateReqVO}
+     * @param vo {@link UserCreateReqVO}
      * @return 用户编号
      */
-    Long createUser(UserCreateReqVO userCreateReqVO);
+    Long createUser(UserCreateReqVO vo);
 
     /**
      * 修改用户信息
      *
-     * @param userUpdateReqVO {@link UserUpdateReqVO}
+     * @param vo {@link UserUpdateReqVO}
      */
-    void updateUser(UserUpdateReqVO userUpdateReqVO);
+    void updateUser(UserUpdateReqVO vo);
 
     /**
      * 更新用户最后登录信息
@@ -106,10 +106,10 @@ public interface AdminUserService {
     /**
      * 获取用户分页列表
      *
-     * @param userPageReqVO {@link UserPageReqVO}
+     * @param vo {@link UserPageReqVO}
      * @return 用户分页信息
      */
-    PageResult<AdminUserDO> getUserPage(UserPageReqVO userPageReqVO);
+    PageResult<AdminUserDO> getUserPage(UserPageReqVO vo);
 
     /**
      * 获得指定部门的用户数组

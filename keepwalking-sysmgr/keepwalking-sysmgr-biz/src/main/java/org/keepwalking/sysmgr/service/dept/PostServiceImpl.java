@@ -17,9 +17,14 @@
 
 package org.keepwalking.sysmgr.service.dept;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.keepwalking.common.core.enums.CommonStatusEnum;
+import org.keepwalking.common.core.exception.ServiceException;
+import org.keepwalking.sysmgr.constant.SysMgrErrorCode;
 import org.keepwalking.sysmgr.controller.dept.vo.PostCreateReqVO;
-import org.keepwalking.sysmgr.controller.dept.vo.PostListReqVO;
+import org.keepwalking.sysmgr.controller.dept.vo.PostExportReqVO;
 import org.keepwalking.sysmgr.controller.dept.vo.PostUpdateReqVO;
 import org.keepwalking.sysmgr.convert.dept.PostConvert;
 import org.keepwalking.sysmgr.repository.dept.PostDO;
@@ -29,6 +34,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 岗位Service实现类
@@ -43,38 +52,80 @@ public class PostServiceImpl implements PostService {
     private PostMapper postMapper;
 
     @Override
-    public Long createPost(PostCreateReqVO postCreateReqVO) {
-        // TODO: 2023/5/6 校验请求数据
-        PostDO post = PostConvert.INSTANCE.convert(postCreateReqVO);
+    public Long createPost(PostCreateReqVO vo) {
+        validatePostDataForCreateOrUpdate(null, vo.getName(), vo.getCode());
+        PostDO post = PostConvert.INSTANCE.convert(vo);
         postMapper.insert(post);
         return post.getId();
     }
 
+    /**
+     * 创建或修改岗位数据校验
+     *
+     * @param id   岗位ID
+     * @param name 岗位名称
+     * @param code 岗位编码
+     */
+    private void validatePostDataForCreateOrUpdate(Long id, String name, String code) {
+        validatePostExists(id);
+        Optional.ofNullable(postMapper.selectByName(name)).ifPresent(v -> {
+            if (!v.getId().equals(id) || ObjectUtil.isNull(id)) {
+                throw new ServiceException(SysMgrErrorCode.POST_NAME_DUPLICATE);
+            }
+        });
+        Optional.ofNullable(postMapper.selectByCode(code)).ifPresent(v -> {
+            if (!v.getId().equals(id) || ObjectUtil.isNull(id)) {
+                throw new ServiceException(SysMgrErrorCode.POST_CODE_DUPLICATE);
+            }
+        });
+    }
+
+    /**
+     * 通过岗位ID检验岗位是否存在
+     *
+     * @param id 岗位ID
+     */
+    private void validatePostExists(Long id) {
+        Optional.ofNullable(postMapper.selectById(id))
+                .orElseThrow(() -> new ServiceException(SysMgrErrorCode.POST_NOT_EXIST));
+    }
+
     @Override
-    public void updatePost(PostUpdateReqVO postUpdateReqVO) {
-        // TODO: 2023/5/6 校验请求数据
-        PostDO post = PostConvert.INSTANCE.convert(postUpdateReqVO);
+    public void updatePost(PostUpdateReqVO vo) {
+        validatePostDataForCreateOrUpdate(vo.getId(), vo.getName(), vo.getCode());
+        PostDO post = PostConvert.INSTANCE.convert(vo);
         postMapper.updateById(post);
     }
 
     @Override
     public void deletePost(Long id) {
-        // TODO: 2023/5/6 校验请求数据
+        validatePostExists(id);
         postMapper.deleteById(id);
     }
 
     @Override
-    public List<PostDO> getPostList(PostListReqVO postListReqVO) {
-        return postMapper.selectList(postListReqVO);
+    public List<PostDO> getPostList(PostExportReqVO vo) {
+        return postMapper.selectList(vo);
     }
 
     @Override
     public PostDO getPost(Long id) {
-        return null;
+        return postMapper.selectById(id);
     }
 
     @Override
     public void validatePostList(Collection<Long> ids) {
-
+        if (CollectionUtil.isEmpty(ids)) {
+            return;
+        }
+        Map<Long, PostDO> postMap = postMapper.selectBatchIds(ids).stream()
+                .collect(Collectors.toMap(PostDO::getId, Function.identity(), (v1, v2) -> v1));
+        ids.forEach(v -> {
+            PostDO post = Optional.ofNullable(postMap.get(v))
+                    .orElseThrow(() -> new ServiceException(SysMgrErrorCode.POST_NOT_EXIST));
+            if (!CommonStatusEnum.ENABLE.getStatus().equals(post.getStatus())) {
+                throw new ServiceException(SysMgrErrorCode.POST_NOT_ENABLE);
+            }
+        });
     }
 }

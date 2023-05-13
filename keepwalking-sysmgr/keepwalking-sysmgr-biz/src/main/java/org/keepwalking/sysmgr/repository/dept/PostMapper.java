@@ -23,7 +23,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.keepwalking.sysmgr.controller.dept.vo.PostListReqVO;
+import org.keepwalking.sysmgr.controller.dept.vo.PostExportReqVO;
 
 import java.util.Collection;
 import java.util.List;
@@ -66,7 +66,6 @@ public interface PostMapper extends BaseMapper<PostDO> {
      *
      * @param code 岗位编码
      * @return 岗位信息
-     *
      */
     default PostDO selectByCode(String code) {
         return selectOne(new LambdaQueryWrapper<PostDO>().eq(PostDO::getCode, code));
@@ -75,13 +74,13 @@ public interface PostMapper extends BaseMapper<PostDO> {
     /**
      * 查询岗位列表
      *
-     * @param vo
+     * @param vo {@link PostExportReqVO}
      * @return 岗位列表
      */
-    default List<PostDO> selectList(PostListReqVO vo) {
+    default List<PostDO> selectList(PostExportReqVO vo) {
         return selectList(new LambdaQueryWrapper<PostDO>()
                 .like(StrUtil.isNotEmpty(vo.getCode()), PostDO::getCode, vo.getCode())
                 .like(StrUtil.isNotEmpty(vo.getName()), PostDO::getName, vo.getName())
-                .eq(ObjectUtil.isNotEmpty(vo.getStatus()), PostDO::getCode, vo.getCode()));
+                .eq(ObjectUtil.isNotEmpty(vo.getStatus()), PostDO::getStatus, vo.getStatus()));
     }
 }

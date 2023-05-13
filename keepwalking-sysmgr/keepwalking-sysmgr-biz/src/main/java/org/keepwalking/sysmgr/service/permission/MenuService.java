@@ -34,17 +34,17 @@ public interface MenuService {
     /**
      * 创建菜单
      *
-     * @param menuCreateReqVO {@link MenuCreateReqVO}
+     * @param vo {@link MenuCreateReqVO}
      * @return 菜单编号
      */
-    Long createMenu(MenuCreateReqVO menuCreateReqVO);
+    Long createMenu(MenuCreateReqVO vo);
 
     /**
      * 更新菜单
      *
-     * @param menuUpdateReqVO {@link MenuUpdateReqVO}
+     * @param vo {@link MenuUpdateReqVO}
      */
-    void updateMenu(MenuUpdateReqVO menuUpdateReqVO);
+    void updateMenu(MenuUpdateReqVO vo);
 
     /**
      * 删除菜单
@@ -56,10 +56,10 @@ public interface MenuService {
     /**
      * 按条件筛选菜单列表
      *
-     * @param menuListReqVO {@link MenuListReqVO}
+     * @param vo {@link MenuListReqVO}
      * @return {@link MenuDO}
      */
-    List<MenuDO> getMenuList(MenuListReqVO menuListReqVO);
+    List<MenuDO> getMenuList(MenuListReqVO vo);
 
     /**
      * 获得所有菜单列表
