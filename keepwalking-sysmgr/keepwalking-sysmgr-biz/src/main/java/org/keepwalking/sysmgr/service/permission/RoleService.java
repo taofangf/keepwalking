@@ -35,18 +35,18 @@ public interface RoleService {
     /**
      * 创建角色
      *
-     * @param roleCreateReqVO {@link RoleCreateReqVO}
-     * @param roleType        角色类型 {@link org.keepwalking.sysmgr.enums.RoleTypeEnum}
+     * @param vo       {@link RoleCreateReqVO}
+     * @param roleType 角色类型 {@link org.keepwalking.sysmgr.enums.RoleTypeEnum}
      * @return 角色编号
      */
-    Long createRole(RoleCreateReqVO roleCreateReqVO, Integer roleType);
+    Long createRole(RoleCreateReqVO vo, Integer roleType);
 
     /**
      * 更新角色
      *
-     * @param roleUpdateReqVO {@link RoleUpdateReqVO}
+     * @param vo {@link RoleUpdateReqVO}
      */
-    void updateRole(RoleUpdateReqVO roleUpdateReqVO);
+    void updateRole(RoleUpdateReqVO vo);
 
     /**
      * 删除角色
@@ -74,10 +74,10 @@ public interface RoleService {
     /**
      * 获得角色分页
      *
-     * @param rolePageReqVO {@link RolePageReqVO}
+     * @param vo {@link RolePageReqVO}
      * @return 角色分页结果
      */
-    PageResult<RoleDO> getRolePage(RolePageReqVO rolePageReqVO);
+    PageResult<RoleDO> getRolePage(RolePageReqVO vo);
 
     /**
      * 校验角色们是否有效。如下情况，视为无效：

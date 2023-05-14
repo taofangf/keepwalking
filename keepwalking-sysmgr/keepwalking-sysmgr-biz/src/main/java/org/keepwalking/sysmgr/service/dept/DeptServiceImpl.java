@@ -17,6 +17,7 @@
 
 package org.keepwalking.sysmgr.service.dept;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.keepwalking.common.core.enums.CommonStatusEnum;
@@ -32,8 +33,12 @@ import org.keepwalking.sysmgr.repository.dept.DeptMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 部门Service实现类
@@ -75,7 +80,7 @@ public class DeptServiceImpl implements DeptService {
         DeptDO dept = Optional.ofNullable(deptMapper.selectById(parentId))
                 .orElseThrow(() -> new ServiceException(SysMgrErrorCode.DEPT_PARENT_NOT_EXIST));
         if (!CommonStatusEnum.ENABLE.getStatus().equals(dept.getStatus())) {
-            throw new ServiceException(SysMgrErrorCode.DEPT_NOT_ENABLE);
+            throw new ServiceException(SysMgrErrorCode.DEPT_IS_DISABLE);
         }
         // TODO: 2023/5/13 父部门不能为子部门、需要递归查询
         /*
@@ -86,7 +91,7 @@ public class DeptServiceImpl implements DeptService {
          */
         Optional.ofNullable(deptMapper.selectByParentIdAndName(parentId, name)).ifPresent(v -> {
             if (!v.getId().equals(id) || ObjectUtil.isNull(id)) {
-                throw new ServiceException(SysMgrErrorCode.DEPT_NAME_DUPLICATE);
+                throw new ServiceException(SysMgrErrorCode.DEPT_NAME_EXIST);
             }
         });
     }
@@ -137,5 +142,21 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public DeptDO getDept(Long id) {
         return deptMapper.selectById(id);
+    }
+
+    @Override
+    public void validateDeptList(Collection<Long> ids) {
+        if (CollectionUtil.isEmpty(ids)) {
+            return;
+        }
+        Map<Long, DeptDO> deptMap = deptMapper.selectBatchIds(ids).stream()
+                .collect(Collectors.toMap(DeptDO::getId, Function.identity(), (v1, v2) -> v1));
+        ids.forEach(v -> {
+            DeptDO dept = Optional.ofNullable(deptMap.get(v))
+                    .orElseThrow(() -> new ServiceException(SysMgrErrorCode.DEPT_NOT_EXIST));
+            if (!CommonStatusEnum.ENABLE.getStatus().equals(dept.getStatus())) {
+                throw new ServiceException(SysMgrErrorCode.DEPT_IS_DISABLE);
+            }
+        });
     }
 }

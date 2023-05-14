@@ -52,6 +52,16 @@ public interface AdminUserMapper extends BaseMapper<AdminUserDO> {
     default AdminUserDO selectByEmail(String email) {
         return selectOne(new LambdaQueryWrapper<AdminUserDO>().eq(AdminUserDO::getEmail, email));
     }
+
+    /**
+     * 通过手机号码查询用户信息
+     *
+     * @param mobile 手机号码
+     * @return {@link AdminUserDO}
+     */
+    default AdminUserDO selectByMobile(String mobile) {
+        return selectOne(new LambdaQueryWrapper<AdminUserDO>().eq(AdminUserDO::getMobile, mobile));
+    }
     // TODO: 2023/5/3 用户分页和列表查询待处理
 
     /**

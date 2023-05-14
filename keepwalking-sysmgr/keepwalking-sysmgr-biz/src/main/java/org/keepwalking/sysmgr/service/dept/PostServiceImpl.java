@@ -70,12 +70,12 @@ public class PostServiceImpl implements PostService {
         validatePostExists(id);
         Optional.ofNullable(postMapper.selectByName(name)).ifPresent(v -> {
             if (!v.getId().equals(id) || ObjectUtil.isNull(id)) {
-                throw new ServiceException(SysMgrErrorCode.POST_NAME_DUPLICATE);
+                throw new ServiceException(SysMgrErrorCode.POST_NAME_EXIST);
             }
         });
         Optional.ofNullable(postMapper.selectByCode(code)).ifPresent(v -> {
             if (!v.getId().equals(id) || ObjectUtil.isNull(id)) {
-                throw new ServiceException(SysMgrErrorCode.POST_CODE_DUPLICATE);
+                throw new ServiceException(SysMgrErrorCode.POST_CODE_EXIST);
             }
         });
     }
@@ -124,7 +124,7 @@ public class PostServiceImpl implements PostService {
             PostDO post = Optional.ofNullable(postMap.get(v))
                     .orElseThrow(() -> new ServiceException(SysMgrErrorCode.POST_NOT_EXIST));
             if (!CommonStatusEnum.ENABLE.getStatus().equals(post.getStatus())) {
-                throw new ServiceException(SysMgrErrorCode.POST_NOT_ENABLE);
+                throw new ServiceException(SysMgrErrorCode.POST_IS_DISABLE);
             }
         });
     }

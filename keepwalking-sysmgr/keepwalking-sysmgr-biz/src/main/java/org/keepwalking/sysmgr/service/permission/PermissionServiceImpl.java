@@ -17,13 +17,19 @@
 
 package org.keepwalking.sysmgr.service.permission;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import lombok.extern.slf4j.Slf4j;
-import org.keepwalking.sysmgr.repository.permission.MenuDO;
+import org.keepwalking.sysmgr.repository.permission.*;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 权限Service接口实现类
@@ -34,9 +40,18 @@ import java.util.Set;
 @Service
 @Slf4j
 public class PermissionServiceImpl implements PermissionService {
+    @Resource
+    private UserRoleMapper userRoleMapper;
+    @Resource
+    private RoleMenuMapper roleMenuMapper;
+
     @Override
     public Set<Long> getUserRoleIdListByUserId(Long userId) {
-        return null;
+        return userRoleMapper.selectListByUserId(userId)
+                .stream()
+                .map(UserRoleDO::getRoleId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -46,27 +61,71 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Set<Long> getRoleMenuIds(Long roleId) {
-        return null;
+        return roleMenuMapper.selectListByRoleId(roleId).stream()
+                .map(RoleMenuDO::getRoleId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Set<Long> getUserRoleIdListByRoleIds(Collection<Long> roleIds) {
-        return null;
+        return userRoleMapper.selectListByRoleIds(roleIds).stream()
+                .map(UserRoleDO::getRoleId)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public List<MenuDO> getRoleMenuListFromCache(Collection<Long> roleIds, Collection<Integer> menuTypes, Collection<Integer> menuStatuses) {
+        // TODO: 2023/5/14 缓存后面实现
         return null;
     }
 
     @Override
     public void assignUserRole(Long userId, Set<Long> roleIds) {
+        // 查询已存在的用户角色编号集合
+        Set<Long> userRoleIds = userRoleMapper.selectListByUserId(userId).stream()
+                .map(UserRoleDO::getRoleId).filter(Objects::nonNull).collect(Collectors.toSet());
+        // 将传入的角色编号集合与数据库存在的用户角色编号集合比较，如果是数据库中不存在则新增用户角色关联
+        Collection<Long> createRoleIds = CollUtil.subtract(roleIds, userRoleIds);
+        // 反之，集合取差集将数据库中存在但是传入的用户角色不存在即为需要删除的用户角色
+        Collection<Long> deleteRoleIds = CollUtil.subtract(userRoleIds, roleIds);
 
+        if (CollectionUtil.isNotEmpty(createRoleIds)) {
+            Db.saveBatch(createRoleIds.stream()
+                    .map(v -> {
+                        UserRoleDO userRoleDO = new UserRoleDO();
+                        userRoleDO.setUserId(userId);
+                        userRoleDO.setRoleId(v);
+                        return userRoleDO;
+                    }).collect(Collectors.toList()));
+        }
+        if (CollectionUtil.isNotEmpty(deleteRoleIds)) {
+            userRoleMapper.deleteListByUserIdAndRoleIdIds(userId, deleteRoleIds);
+        }
+        // TODO: 2023/5/14 事务处理
     }
 
     @Override
     public void assignRoleMenu(Long roleId, Set<Long> menuIds) {
-
+        Set<Long> roleMenuIds = roleMenuMapper.selectListByRoleId(roleId).stream()
+                .map(RoleMenuDO::getRoleId).filter(Objects::nonNull).collect(Collectors.toSet());
+        // 将传入的角色菜单集合与数据库存在的角色菜单编号集合对比，如果数据库中不存在则为新增的角色菜单
+        Collection<Long> createRoleMenuIds = CollUtil.subtract(menuIds, roleMenuIds);
+        // 反之即为需要删除的角色菜单
+        Collection<Long> deleterRoleMenuIds = CollUtil.subtract(roleMenuIds, menuIds);
+        if (CollectionUtil.isNotEmpty(createRoleMenuIds)) {
+            Db.saveBatch(createRoleMenuIds.stream()
+                    .map(v -> {
+                        RoleMenuDO roleMenuDO = new RoleMenuDO();
+                        roleMenuDO.setRoleId(roleId);
+                        roleMenuDO.setMenuId(v);
+                        return roleMenuDO;
+                    }).collect(Collectors.toList()));
+        }
+        if (CollectionUtil.isNotEmpty(deleterRoleMenuIds)) {
+            userRoleMapper.deleteListByUserIdAndRoleIdIds(roleId, deleterRoleMenuIds);
+        }
+        // TODO: 2023/5/14 事务处理
     }
 
     @Override
@@ -76,17 +135,19 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void processRoleDeleted(Long roleId) {
-
+        // TODO: 2023/5/14 事务待补充
+        userRoleMapper.deleteListByRoleId(roleId);
+        roleMenuMapper.deleteListByRoleId(roleId);
     }
 
     @Override
     public void processMenuDeleted(Long menuId) {
-
+        roleMenuMapper.deleteListByMenuId(menuId);
     }
 
     @Override
     public void processUserDeleted(Long userId) {
-
+        userRoleMapper.deleteListByUserId(userId);
     }
 
     @Override

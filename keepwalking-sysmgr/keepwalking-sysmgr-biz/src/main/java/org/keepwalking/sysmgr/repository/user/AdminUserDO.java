@@ -24,6 +24,7 @@ import lombok.*;
 import org.keepwalking.sysmgr.repository.base.BaseDO;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * 系统管理用户DO
@@ -65,7 +66,10 @@ public class AdminUserDO extends BaseDO {
      * 部门 ID
      */
     private Long deptId;
-    // TODO: 2023/5/1 岗位编号数组属性暂时没有添加
+    /**
+     * 岗位编号数组
+     */
+    private Set<Long> postIds;
     /**
      * 用户邮箱
      */

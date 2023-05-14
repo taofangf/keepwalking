@@ -37,7 +37,7 @@ public final class SysMgrErrorCode {
     /**
      * 部门状态被禁用
      */
-    public static final ErrorCode DEPT_NOT_ENABLE = new ErrorCode("SYSMGR-100002", "部门状态被禁用");
+    public static final ErrorCode DEPT_IS_DISABLE = new ErrorCode("SYSMGR-100002", "部门状态被禁用");
     /**
      * 不能设置自己为父部门
      */
@@ -45,7 +45,7 @@ public final class SysMgrErrorCode {
     /**
      * 部门名称重复
      */
-    public static final ErrorCode DEPT_NAME_DUPLICATE = new ErrorCode("SYSMGR-100004", "部门名称重复");
+    public static final ErrorCode DEPT_NAME_EXIST = new ErrorCode("SYSMGR-100004", "部门名称重复");
     /**
      * 该部门存在子部门，无法删除
      */
@@ -57,15 +57,15 @@ public final class SysMgrErrorCode {
     /**
      * 岗位名称重复
      */
-    public static final ErrorCode POST_NAME_DUPLICATE = new ErrorCode("SYSMGR-100007", "岗位名称重复");
+    public static final ErrorCode POST_NAME_EXIST = new ErrorCode("SYSMGR-100007", "岗位名称重复");
     /**
      * 岗位编码重复
      */
-    public static final ErrorCode POST_CODE_DUPLICATE = new ErrorCode("SYSMGR-100008", "岗位编码重复");
+    public static final ErrorCode POST_CODE_EXIST = new ErrorCode("SYSMGR-100008", "岗位编码重复");
     /**
      * 岗位状态被禁用
      */
-    public static final ErrorCode POST_NOT_ENABLE = new ErrorCode("SYSMGR-100009", "岗位状态被禁用");
+    public static final ErrorCode POST_IS_DISABLE = new ErrorCode("SYSMGR-100009", "岗位状态被禁用");
     /**
      * 父菜单不存在
      */
@@ -77,7 +77,7 @@ public final class SysMgrErrorCode {
     /**
      * 菜单名称已存在
      */
-    public static final ErrorCode MENU_NAME_DUPLICATE = new ErrorCode("SYSMGR-100012", "菜单名称已存在");
+    public static final ErrorCode MENU_NAME_EXIST = new ErrorCode("SYSMGR-100012", "菜单名称已存在");
     /**
      * 菜单不存在
      */
@@ -90,4 +90,40 @@ public final class SysMgrErrorCode {
      * 当前菜单存在子菜单，无法删除
      */
     public static final ErrorCode MENU_EXIST_CHILDREN = new ErrorCode("SYSMGR-100015", "当前菜单存在子菜单，无法删除");
+    /**
+     * 角色名称已存在
+     */
+    public static final ErrorCode ROLE_NAME_EXIST = new ErrorCode("SYSMGR-100016", "角色名称已存在");
+    /**
+     * 角色编码已存在
+     */
+    public static final ErrorCode ROLE_CODE_EXIST = new ErrorCode("SYSMGR-100017", "角色编码已存在");
+    /**
+     * 角色不存在
+     */
+    public static final ErrorCode ROLE_NOT_EXIST = new ErrorCode("SYSMGR-100018", "角色不存在");
+    /**
+     * 内置角色不允许操作
+     */
+    public static final ErrorCode ROLE_CAN_NOT_OPERATE = new ErrorCode("SYSMGR-100019", "内置角色不允许操作");
+    /**
+     * 角色被禁用
+     */
+    public static final ErrorCode ROLE_IS_DISABLE = new ErrorCode("SYSMGR-100020", "角色被禁用");
+    /**
+     * 用户账号已经存在
+     */
+    public static final ErrorCode USER_USERNAME_EXIST = new ErrorCode("SYSMGR-100021", "用户账号已经存在");
+    /**
+     * 用户邮箱已经存在
+     */
+    public static final ErrorCode USER_EMAIL_EXIST = new ErrorCode("SYSMGR-100022", "用户邮箱已经存在");
+    /**
+     * 用户手机号码已存在
+     */
+    public static final ErrorCode USER_MOBILE_EXIST = new ErrorCode("SYSMGR-100023", "用户手机号码已经存在");
+    /**
+     * 用户不存在
+     */
+    public static final ErrorCode USER_NOT_EXIST = new ErrorCode("SYSMGR-100024", "用户不存在");
 }

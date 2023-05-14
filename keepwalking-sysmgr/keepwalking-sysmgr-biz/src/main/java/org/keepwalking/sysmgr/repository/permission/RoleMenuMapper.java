@@ -20,6 +20,7 @@ package org.keepwalking.sysmgr.repository.permission;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -33,13 +34,6 @@ import java.util.List;
  */
 @Mapper
 public interface RoleMenuMapper extends BaseMapper<RoleMenuDO> {
-    /**
-     * 批量插入角色菜单关联信息
-     */
-    @Repository
-    class BatchInsertMapper extends ServiceImpl<RoleMenuMapper, RoleMenuDO> {
-    }
-
     /**
      * 根据角色ID查询角色菜单关联列表
      *
@@ -62,7 +56,7 @@ public interface RoleMenuMapper extends BaseMapper<RoleMenuDO> {
     /**
      * 通过菜单ID删除角色菜单关联信息
      *
-     * @param menuId
+     * @param menuId 菜单ID
      */
     default void deleteListByMenuId(Long menuId) {
         delete(new LambdaQueryWrapper<RoleMenuDO>().eq(RoleMenuDO::getMenuId, menuId));

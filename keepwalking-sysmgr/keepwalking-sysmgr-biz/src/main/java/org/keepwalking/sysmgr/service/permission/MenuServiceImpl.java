@@ -56,7 +56,7 @@ public class MenuServiceImpl implements MenuService {
         }
         // 校验菜单名称是否重复
         Optional.ofNullable(menuMapper.selectByParentIdAndName(vo.getParentId(), vo.getName())).ifPresent(v -> {
-            throw new ServiceException(SysMgrErrorCode.MENU_NAME_DUPLICATE);
+            throw new ServiceException(SysMgrErrorCode.MENU_NAME_EXIST);
         });
         MenuDO menu = MenuConvert.INSTANCE.convert(vo);
         menuMapper.insert(menu);
@@ -77,7 +77,7 @@ public class MenuServiceImpl implements MenuService {
         // 校验菜单名称是否重复
         Optional.ofNullable(menuMapper.selectByParentIdAndName(vo.getParentId(), vo.getName())).ifPresent(v -> {
             if (!v.getId().equals(vo.getId())) {
-                throw new ServiceException(SysMgrErrorCode.MENU_NAME_DUPLICATE);
+                throw new ServiceException(SysMgrErrorCode.MENU_NAME_EXIST);
             }
         });
         MenuDO menu = MenuConvert.INSTANCE.convert(vo);

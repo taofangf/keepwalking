@@ -47,7 +47,7 @@
         <lombok.version>1.18.26</lombok.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <easyexcel.version>3.2.1</easyexcel.version>
-        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <mybatis-plus.version>3.5.3</mybatis-plus.version>
 
         <maven.flatten.version>1.2.5</maven.flatten.version>
     </properties>
@@ -91,6 +91,11 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
         </dependencies>

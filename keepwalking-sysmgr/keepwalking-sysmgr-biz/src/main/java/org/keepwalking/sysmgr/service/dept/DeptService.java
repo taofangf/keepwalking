@@ -22,6 +22,7 @@ import org.keepwalking.sysmgr.controller.dept.vo.DeptListReqVO;
 import org.keepwalking.sysmgr.controller.dept.vo.DeptUpdateReqVO;
 import org.keepwalking.sysmgr.repository.dept.DeptDO;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -77,4 +78,11 @@ public interface DeptService {
      * @return 部门信息
      */
     DeptDO getDept(Long id);
+
+    /**
+     * 校验部门（部门不存在或者状态被禁用视为校验失败）
+     *
+     * @param ids 部门编号集合
+     */
+    void validateDeptList(Collection<Long> ids);
 }

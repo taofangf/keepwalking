@@ -23,6 +23,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * 用户基础信息
@@ -52,7 +53,10 @@ public class UserBaseVO {
      * 部门ID
      */
     private Long deptId;
-    // TODO: 2023/5/1 岗位编号数组属性暂时没有添加
+    /**
+     * 岗位编号数组
+     */
+    private Set<Long> postIds;
     /**
      * 邮箱
      */
