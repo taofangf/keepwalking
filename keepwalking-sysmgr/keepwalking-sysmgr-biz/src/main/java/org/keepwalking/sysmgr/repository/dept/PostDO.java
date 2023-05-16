@@ -21,7 +21,6 @@ import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.keepwalking.sysmgr.repository.base.BaseDO;
 
 /**
@@ -32,7 +31,6 @@ import org.keepwalking.sysmgr.repository.base.BaseDO;
  */
 @TableName("system_post")
 @KeySequence("system_post_seq")
-@EqualsAndHashCode(callSuper = true)
 @Data
 public class PostDO extends BaseDO {
     private static final long serialVersionUID = -8796094088649720718L;

@@ -20,7 +20,6 @@ package org.keepwalking.sysmgr.repository.permission;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.keepwalking.sysmgr.repository.base.BaseDO;
 
 
@@ -31,7 +30,6 @@ import org.keepwalking.sysmgr.repository.base.BaseDO;
  * @since 1.0
  */
 @TableName("system_menu")
-@EqualsAndHashCode(callSuper = true)
 @Data
 public class MenuDO extends BaseDO {
     private static final long serialVersionUID = 1778565683935813010L;

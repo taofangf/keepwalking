@@ -19,7 +19,6 @@ package org.keepwalking.sysmgr.service.permission;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.extension.toolkit.Db;
 import lombok.extern.slf4j.Slf4j;
 import org.keepwalking.sysmgr.repository.permission.*;
 import org.springframework.stereotype.Service;
@@ -91,7 +90,7 @@ public class PermissionServiceImpl implements PermissionService {
         Collection<Long> deleteRoleIds = CollUtil.subtract(userRoleIds, roleIds);
 
         if (CollectionUtil.isNotEmpty(createRoleIds)) {
-            Db.saveBatch(createRoleIds.stream()
+            userRoleMapper.insertBatch(createRoleIds.stream()
                     .map(v -> {
                         UserRoleDO userRoleDO = new UserRoleDO();
                         userRoleDO.setUserId(userId);
@@ -114,7 +113,7 @@ public class PermissionServiceImpl implements PermissionService {
         // 反之即为需要删除的角色菜单
         Collection<Long> deleterRoleMenuIds = CollUtil.subtract(roleMenuIds, menuIds);
         if (CollectionUtil.isNotEmpty(createRoleMenuIds)) {
-            Db.saveBatch(createRoleMenuIds.stream()
+            roleMenuMapper.insertBatch(createRoleMenuIds.stream()
                     .map(v -> {
                         RoleMenuDO roleMenuDO = new RoleMenuDO();
                         roleMenuDO.setRoleId(roleId);

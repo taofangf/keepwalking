@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.controller.dept.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
@@ -29,7 +28,6 @@ import java.time.LocalDateTime;
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class DeptRespVO extends DeptBaseVO {
     /**
      * 部门ID

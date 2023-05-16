@@ -18,14 +18,13 @@
 package org.keepwalking.sysmgr.controller.permission.vo.menu;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 菜单创建VO
+ *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class MenuCreateReqVO extends MenuBaseVO {
 }

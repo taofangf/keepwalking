@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.controller.dict.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.keepwalking.sysmgr.domain.PageParam;
 
 import javax.validation.constraints.Size;
@@ -30,7 +29,6 @@ import javax.validation.constraints.Size;
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class DictDataPageReqVO extends PageParam {
     private static final long serialVersionUID = -5101443284664308269L;
     /**

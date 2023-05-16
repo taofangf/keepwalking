@@ -20,6 +20,7 @@ package org.keepwalking.sysmgr.repository.dept;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Collection;
@@ -72,5 +73,14 @@ public interface UserPostMapper extends BaseMapper<UserPostDO> {
      */
     default void deleteByUserId(Long userId) {
         delete(Wrappers.lambdaUpdate(UserPostDO.class).eq(UserPostDO::getUserId, userId));
+    }
+
+    /**
+     * 批量插入
+     *
+     * @param entityList 批量插入数据集合
+     */
+    default void insertBatch(Collection<UserPostDO> entityList) {
+        Db.saveBatch(entityList);
     }
 }

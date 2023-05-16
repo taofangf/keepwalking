@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.controller.dept.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 岗位列表VO
@@ -27,7 +26,6 @@ import lombok.EqualsAndHashCode;
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class PostListReqVO extends PostBaseVO {
     /**
      * 岗位名称（模糊匹配）

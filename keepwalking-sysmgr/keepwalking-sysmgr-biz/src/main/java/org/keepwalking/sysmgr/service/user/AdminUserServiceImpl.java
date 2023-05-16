@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.service.user;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.extension.toolkit.Db;
 import lombok.extern.slf4j.Slf4j;
 import org.keepwalking.common.core.domain.PageResult;
 import org.keepwalking.common.core.enums.CommonStatusEnum;
@@ -29,6 +28,7 @@ import org.keepwalking.sysmgr.controller.user.vo.UserPageReqVO;
 import org.keepwalking.sysmgr.controller.user.vo.UserUpdateReqVO;
 import org.keepwalking.sysmgr.convert.user.UserConvert;
 import org.keepwalking.sysmgr.repository.dept.UserPostDO;
+import org.keepwalking.sysmgr.repository.dept.UserPostMapper;
 import org.keepwalking.sysmgr.repository.user.AdminUserDO;
 import org.keepwalking.sysmgr.repository.user.AdminUserMapper;
 import org.keepwalking.sysmgr.service.dept.DeptService;
@@ -36,6 +36,7 @@ import org.keepwalking.sysmgr.service.dept.PostService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     private PostService postService;
     @Resource
     private DeptService deptService;
+    @Resource
+    private UserPostMapper userPostMapper;
 
     @Override
     public Long createUser(UserCreateReqVO vo) {
@@ -63,7 +66,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         userMapper.insert(user);
         if (CollectionUtil.isNotEmpty(user.getPostIds())) {
             // 用户岗位关联信息
-            Db.saveBatch(user.getPostIds().stream()
+            userPostMapper.insertBatch(user.getPostIds().stream()
                     .map(v -> {
                         UserPostDO userPostDO = new UserPostDO();
                         userPostDO.setUserId(user.getId());
@@ -81,7 +84,26 @@ public class AdminUserServiceImpl implements AdminUserService {
         validateUserDataForCreateOrUpdate(vo.getUsername(), vo.getEmail(), vo.getMobile(), vo.getDeptId(), vo.getPostIds());
         AdminUserDO userDO = UserConvert.INSTANCE.convert(vo);
         userMapper.updateById(userDO);
-        // TODO: 2023/5/14 更新用户岗位信息 
+        // 更新用户岗位信息
+        Set<Long> postIds = userPostMapper.selectListByUserId(vo.getId()).stream()
+                .map(UserPostDO::getPostId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        // 将数据库查出的用户岗位ID和修改的用户岗位ID比较 如果数据库中不存在则为新增岗位
+        Collection<Long> createPostIds = CollectionUtil.subtract(postIds, vo.getPostIds());
+        // 反之则删除岗位
+        Collection<Long> deletePostIds = CollectionUtil.subtract(postIds, vo.getPostIds());
+        if (CollectionUtil.isNotEmpty(createPostIds)) {
+            userPostMapper.insertBatch(createPostIds.stream().map(v -> {
+                UserPostDO userPostDO = new UserPostDO();
+                userPostDO.setUserId(vo.getId());
+                userPostDO.setPostId(v);
+                return userPostDO;
+            }).collect(Collectors.toList()));
+        }
+        if (CollectionUtil.isNotEmpty(deletePostIds)) {
+            userPostMapper.deleteByUserIdAndPostId(vo.getId(), deletePostIds);
+        }
     }
 
     /**
@@ -111,7 +133,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public void updateUserLogin(Long id, String loginIp) {
-
+        userMapper.updateById(new AdminUserDO().setId(id).setLoginIp(loginIp).setLoginDate(LocalDateTime.now()));
     }
 
     @Override

@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.controller.permission.vo.role;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotNull;
 
@@ -29,7 +28,6 @@ import javax.validation.constraints.NotNull;
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class RoleUpdateReqVO extends RoleBaseVO {
     /**
      * 角色编号

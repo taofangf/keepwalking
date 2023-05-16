@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.controller.permission.vo.role;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -30,7 +29,6 @@ import java.util.Set;
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class RoleRespVO extends RoleBaseVO {
     /**
      * 角色编号

@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.controller.permission.vo.role;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * 创建角色VO
@@ -27,6 +26,5 @@ import lombok.EqualsAndHashCode;
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class RoleCreateReqVO extends RoleBaseVO {
 }

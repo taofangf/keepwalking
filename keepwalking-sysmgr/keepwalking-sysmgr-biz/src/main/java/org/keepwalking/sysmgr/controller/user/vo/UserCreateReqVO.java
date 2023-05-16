@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.controller.user.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
@@ -29,7 +28,6 @@ import javax.validation.constraints.NotEmpty;
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 public class UserCreateReqVO extends UserBaseVO {
     @NotEmpty(message = "密码不能为空")

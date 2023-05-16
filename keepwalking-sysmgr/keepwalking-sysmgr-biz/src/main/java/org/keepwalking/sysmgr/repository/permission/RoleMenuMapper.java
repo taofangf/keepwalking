@@ -24,6 +24,7 @@ import com.baomidou.mybatisplus.extension.toolkit.Db;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -60,5 +61,14 @@ public interface RoleMenuMapper extends BaseMapper<RoleMenuDO> {
      */
     default void deleteListByMenuId(Long menuId) {
         delete(new LambdaQueryWrapper<RoleMenuDO>().eq(RoleMenuDO::getMenuId, menuId));
+    }
+
+    /**
+     * 批量插入角色菜单关联
+     *
+     * @param entityList
+     */
+    default void insertBatch(Collection<RoleMenuDO> entityList) {
+        Db.saveBatch(entityList);
     }
 }

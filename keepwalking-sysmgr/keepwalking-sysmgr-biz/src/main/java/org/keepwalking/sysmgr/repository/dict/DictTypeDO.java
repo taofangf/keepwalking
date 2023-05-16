@@ -22,7 +22,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.keepwalking.sysmgr.repository.base.BaseDO;
 
 import java.time.LocalDateTime;
@@ -37,7 +36,6 @@ import java.time.LocalDateTime;
 @KeySequence("system_dict_type_seq")
 @Data
 @Builder
-@EqualsAndHashCode(callSuper = true)
 public class DictTypeDO extends BaseDO {
     private static final long serialVersionUID = -5015435105419742387L;
     /**

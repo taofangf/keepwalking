@@ -18,7 +18,6 @@
 package org.keepwalking.common.core.exception;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.keepwalking.common.core.Result;
 
 /**
@@ -28,7 +27,6 @@ import org.keepwalking.common.core.Result;
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = 8351331510330925482L;
     /**

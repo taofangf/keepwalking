@@ -19,7 +19,6 @@ package org.keepwalking.sysmgr.controller.permission.vo.role;
 
 import cn.hutool.core.date.DatePattern;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.keepwalking.sysmgr.domain.PageParam;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,7 +31,6 @@ import java.time.LocalDateTime;
  * @since 1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class RolePageReqVO extends PageParam {
     private static final long serialVersionUID = -2496838862754930436L;
     /**

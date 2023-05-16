@@ -19,6 +19,7 @@ package org.keepwalking.sysmgr.repository.permission;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Collection;
@@ -80,5 +81,14 @@ public interface UserRoleMapper extends BaseMapper<UserRoleDO> {
      */
     default List<UserRoleDO> selectListByRoleIds(Collection<Long> roleIds) {
         return selectList(new LambdaQueryWrapper<UserRoleDO>().in(UserRoleDO::getRoleId, roleIds));
+    }
+
+    /**
+     * 批量插入用户角色关联
+     *
+     * @param entityList 用户角色关联列表
+     */
+    default void insertBatch(Collection<UserRoleDO> entityList) {
+        Db.saveBatch(entityList);
     }
 }

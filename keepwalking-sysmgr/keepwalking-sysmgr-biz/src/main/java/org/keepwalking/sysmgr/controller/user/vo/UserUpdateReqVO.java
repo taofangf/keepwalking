@@ -18,7 +18,6 @@
 package org.keepwalking.sysmgr.controller.user.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotNull;
 
@@ -28,7 +27,6 @@ import javax.validation.constraints.NotNull;
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 public class UserUpdateReqVO extends UserBaseVO {
     /**

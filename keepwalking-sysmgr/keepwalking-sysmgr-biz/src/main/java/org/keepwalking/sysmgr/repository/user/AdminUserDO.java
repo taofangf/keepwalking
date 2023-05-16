@@ -20,7 +20,10 @@ package org.keepwalking.sysmgr.repository.user;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.keepwalking.sysmgr.repository.base.BaseDO;
 
 import java.time.LocalDateTime;
@@ -36,7 +39,6 @@ import java.util.Set;
 @KeySequence("system_user_seq")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @Data
 public class AdminUserDO extends BaseDO {
