@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@192.168.123.121:1521:ORCL
+    username: scott
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: NONE
+      logic-delete-value: 1 # 逻辑删除全局值（默认 1、表示已删除）
+      logic-not-delete-value: 0 # 逻辑未删除全局值（默认 0、表示未删除）
+  type-aliases-package: org.keepwalking.sysmgr.repository

@@ -15,48 +15,20 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.permission;
+package org.keepwalking.sysmgr;
 
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.Assert.*;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 菜单Service单元测试
+ * 启动类
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
-@SpringBootTest
-public class MenuServiceImplTest {
-
-    @Test
-    public void createMenu() {
-    }
-
-    @Test
-    public void updateMenu() {
-    }
-
-    @Test
-    public void deleteMenu() {
-    }
-
-    @Test
-    public void getMenuList() {
-    }
-
-    @Test
-    public void testGetMenuList() {
-    }
-
-    @Test
-    public void getMenu() {
-    }
-
-    @Test
-    public void getMenuListByPermissionFromCache() {
+@SpringBootApplication
+public class SysMgrApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SysMgrApplication.class, args);
     }
 }

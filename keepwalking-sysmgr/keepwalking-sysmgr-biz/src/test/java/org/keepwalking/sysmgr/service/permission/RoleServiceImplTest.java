@@ -17,7 +17,8 @@
 
 package org.keepwalking.sysmgr.service.permission;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.*;
 
@@ -27,6 +28,7 @@ import static org.junit.Assert.*;
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
+@SpringBootTest
 public class RoleServiceImplTest {
 
     @Test

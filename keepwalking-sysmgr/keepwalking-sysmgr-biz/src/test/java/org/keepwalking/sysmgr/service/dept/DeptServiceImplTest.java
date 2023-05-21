@@ -15,83 +15,62 @@
  * limitations under the License.
  */
 
-package org.keepwalking.sysmgr.service.user;
+package org.keepwalking.sysmgr.service.dept;
 
 import org.junit.jupiter.api.Test;
+import org.keepwalking.common.core.enums.CommonStatusEnum;
+import org.keepwalking.sysmgr.controller.dept.vo.DeptListReqVO;
+import org.keepwalking.sysmgr.controller.dept.vo.DeptUpdateReqVO;
+import org.keepwalking.sysmgr.repository.dept.DeptDO;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.Assert.*;
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * 系统管理 用户Service单元测试
+ * 部门Service单元测试
  *
  * @author <a href="mailto:taofangf@gmail.com">fangtao</a>
  * @since 1.0
  */
 @SpringBootTest
-public class AdminUserServiceImplTest {
+public class DeptServiceImplTest {
+
+    @Resource
+    private DeptService deptService;
 
     @Test
-    public void createUser() {
+    public void createDept() {
     }
 
     @Test
-    public void updateUser() {
+    public void updateDept() {
+        DeptUpdateReqVO updateReqVO = new DeptUpdateReqVO().setId(100L);
+        updateReqVO.setName("新部门名称");
+        deptService.updateDept(updateReqVO);
     }
 
     @Test
-    public void updateUserLogin() {
+    public void deleteDept() {
+        deptService.deleteDept(111L);
     }
 
     @Test
-    public void deleteUser() {
+    public void getDeptList() {
+        DeptListReqVO reqVO = new DeptListReqVO().setStatus(CommonStatusEnum.ENABLE.getStatus());
+        List<DeptDO> deptList = deptService.getDeptList(reqVO);
+        System.out.println("deptList = " + deptList);
     }
 
     @Test
-    public void updateUserPassword() {
+    public void getDeptListByParentIdFromCache() {
     }
 
     @Test
-    public void updateUserStatus() {
+    public void getDept() {
     }
 
     @Test
-    public void getUser() {
-    }
-
-    @Test
-    public void getUserByUsername() {
-    }
-
-    @Test
-    public void getUserByMobile() {
-    }
-
-    @Test
-    public void getUserPage() {
-    }
-
-    @Test
-    public void getUserListByDeptIds() {
-    }
-
-    @Test
-    public void getUserListByPostIds() {
-    }
-
-    @Test
-    public void getUserList() {
-    }
-
-    @Test
-    public void getUserListByNickname() {
-    }
-
-    @Test
-    public void getUserListByStatus() {
-    }
-
-    @Test
-    public void validateUserList() {
+    public void validateDeptList() {
     }
 }
