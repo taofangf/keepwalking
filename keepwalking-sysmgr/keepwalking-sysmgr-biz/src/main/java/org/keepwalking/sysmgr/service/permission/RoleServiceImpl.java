@@ -34,6 +34,7 @@ import org.keepwalking.sysmgr.enums.RoleTypeEnum;
 import org.keepwalking.sysmgr.repository.permission.RoleDO;
 import org.keepwalking.sysmgr.repository.permission.RoleMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -53,6 +54,8 @@ import java.util.stream.Collectors;
 public class RoleServiceImpl implements RoleService {
     @Resource
     private RoleMapper roleMapper;
+    @Resource
+    private PermissionService permissionService;
 
     @Override
     public Long createRole(RoleCreateReqVO vo, Integer roleType) {
@@ -104,10 +107,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteRole(Long id) {
         validateRole(id);
         roleMapper.deleteById(id);
-        // TODO: 2023/5/14 角色删除相关的权限也需要对应删除、事务处理
+        // 角色删除时对应删除角色权限关联
+        permissionService.processRoleDeleted(id);
     }
 
     @Override

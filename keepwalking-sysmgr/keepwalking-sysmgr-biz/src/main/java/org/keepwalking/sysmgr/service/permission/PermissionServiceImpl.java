@@ -22,6 +22,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.keepwalking.sysmgr.repository.permission.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -80,6 +81,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void assignUserRole(Long userId, Set<Long> roleIds) {
         // 查询已存在的用户角色编号集合
         Set<Long> userRoleIds = userRoleMapper.selectListByUserId(userId).stream()
@@ -101,10 +103,10 @@ public class PermissionServiceImpl implements PermissionService {
         if (CollectionUtil.isNotEmpty(deleteRoleIds)) {
             userRoleMapper.deleteListByUserIdAndRoleIdIds(userId, deleteRoleIds);
         }
-        // TODO: 2023/5/14 事务处理
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void assignRoleMenu(Long roleId, Set<Long> menuIds) {
         Set<Long> roleMenuIds = roleMenuMapper.selectListByRoleId(roleId).stream()
                 .map(RoleMenuDO::getRoleId).filter(Objects::nonNull).collect(Collectors.toSet());
@@ -124,7 +126,6 @@ public class PermissionServiceImpl implements PermissionService {
         if (CollectionUtil.isNotEmpty(deleterRoleMenuIds)) {
             userRoleMapper.deleteListByUserIdAndRoleIdIds(roleId, deleterRoleMenuIds);
         }
-        // TODO: 2023/5/14 事务处理
     }
 
     @Override
@@ -133,8 +134,8 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void processRoleDeleted(Long roleId) {
-        // TODO: 2023/5/14 事务待补充
         userRoleMapper.deleteListByRoleId(roleId);
         roleMenuMapper.deleteListByRoleId(roleId);
     }

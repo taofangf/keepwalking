@@ -33,11 +33,14 @@ import org.keepwalking.sysmgr.repository.user.AdminUserDO;
 import org.keepwalking.sysmgr.repository.user.AdminUserMapper;
 import org.keepwalking.sysmgr.service.dept.DeptService;
 import org.keepwalking.sysmgr.service.dept.PostService;
+import org.keepwalking.sysmgr.service.permission.PermissionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -57,6 +60,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     private DeptService deptService;
     @Resource
     private UserPostMapper userPostMapper;
+    @Resource
+    private PermissionService permissionService;
 
     @Override
     public Long createUser(UserCreateReqVO vo) {
@@ -79,8 +84,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public void updateUser(UserUpdateReqVO vo) {
-        Optional.ofNullable(userMapper.selectById(vo.getId()))
-                .orElseThrow(() -> new ServiceException(SysMgrErrorCode.USER_NOT_EXIST));
+        validateUserExist(vo.getId());
         validateUserDataForCreateOrUpdate(vo.getUsername(), vo.getEmail(), vo.getMobile(), vo.getDeptId(), vo.getPostIds());
         AdminUserDO userDO = UserConvert.INSTANCE.convert(vo);
         userMapper.updateById(userDO);
@@ -104,6 +108,16 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (CollectionUtil.isNotEmpty(deletePostIds)) {
             userPostMapper.deleteByUserIdAndPostId(vo.getId(), deletePostIds);
         }
+    }
+
+    /**
+     * 校验用户是否存在
+     *
+     * @param id 用户ID
+     */
+    private void validateUserExist(Long id) {
+        Optional.ofNullable(userMapper.selectById(id))
+                .orElseThrow(() -> new ServiceException(SysMgrErrorCode.USER_NOT_EXIST));
     }
 
     /**
@@ -133,12 +147,21 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public void updateUserLogin(Long id, String loginIp) {
+        validateUserExist(id);
         userMapper.updateById(new AdminUserDO().setId(id).setLoginIp(loginIp).setLoginDate(LocalDateTime.now()));
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteUser(Long id) {
-
+        validateUserExist(id);
+        userMapper.deleteById(id);
+        // 用户岗位关联信息删除
+        userPostMapper.deleteByUserId(id);
+        // 用户关联角色信息删除
+        permissionService.processUserDeleted(id);
+        // 用户岗位信息关联信息删除
+        userPostMapper.deleteByUserId(id);
     }
 
     @Override
@@ -148,7 +171,9 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public void updateUserStatus(Long id, Integer status) {
-
+        validateUserExist(id);
+        AdminUserDO adminUserDO = new AdminUserDO().setId(id).setStatus(status);
+        userMapper.updateById(adminUserDO);
     }
 
     @Override
@@ -173,31 +198,54 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public List<AdminUserDO> getUserListByDeptIds(Collection<Long> deptIds) {
-        return null;
+        if (CollectionUtil.isEmpty(deptIds)) {
+            return Collections.emptyList();
+        }
+        return userMapper.selectListByDeptIds(deptIds);
     }
 
     @Override
     public List<AdminUserDO> getUserListByPostIds(Collection<Long> postIds) {
-        return null;
+        if (CollectionUtil.isEmpty(postIds)) {
+            return Collections.emptyList();
+        }
+        Set<Long> userIds = userPostMapper.selectListByPostIds(postIds).stream()
+                .map(UserPostDO::getUserId)
+                .filter(Objects::nonNull).collect(Collectors.toSet());
+        return userMapper.selectBatchIds(userIds);
     }
 
     @Override
     public List<AdminUserDO> getUserList(Collection<Long> ids) {
-        return null;
+        if (CollectionUtil.isEmpty(ids)) {
+            return Collections.emptyList();
+        }
+        return userMapper.selectBatchIds(ids);
     }
 
     @Override
     public List<AdminUserDO> getUserListByNickname(String nickname) {
-        return null;
+        return userMapper.selectListByNickname(nickname);
     }
 
     @Override
     public List<AdminUserDO> getUserListByStatus(Integer status) {
-        return null;
+        return userMapper.selectListByStatus(status);
     }
 
     @Override
     public void validateUserList(Collection<Long> ids) {
-
+        if (CollectionUtil.isEmpty(ids)) {
+            return;
+        }
+        Map<Long, AdminUserDO> userMap = userMapper.selectBatchIds(ids).stream()
+                .collect(Collectors.toMap(AdminUserDO::getId, Function.identity(), (v1, v2) -> v1));
+        ids.forEach(s -> {
+            AdminUserDO user = Optional.ofNullable(userMap.get(s))
+                    .orElseThrow(() -> new ServiceException(SysMgrErrorCode.USER_NOT_EXIST));
+            if (!CommonStatusEnum.ENABLE.getStatus().equals(user.getStatus())) {
+                throw new ServiceException(SysMgrErrorCode.DEPT_IS_DISABLE);
+            }
+        });
     }
 }

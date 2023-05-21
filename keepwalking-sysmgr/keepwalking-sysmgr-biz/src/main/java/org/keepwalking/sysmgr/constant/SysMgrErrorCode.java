@@ -126,4 +126,8 @@ public final class SysMgrErrorCode {
      * 用户不存在
      */
     public static final ErrorCode USER_NOT_EXIST = new ErrorCode("SYSMGR-100024", "用户不存在");
+    /**
+     * 用户被禁用
+     */
+    public static final ErrorCode USER_IS_DISABLE = new ErrorCode("SYSMGR-100025", "用户被禁用");
 }

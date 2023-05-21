@@ -31,6 +31,7 @@ import org.keepwalking.sysmgr.enums.MenuTypeEnum;
 import org.keepwalking.sysmgr.repository.permission.MenuDO;
 import org.keepwalking.sysmgr.repository.permission.MenuMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -99,6 +100,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteMenu(Long id) {
         Optional.ofNullable(menuMapper.selectById(id))
                 .orElseThrow(() -> new ServiceException(SysMgrErrorCode.MENU_NOT_EXIST));
@@ -106,7 +108,6 @@ public class MenuServiceImpl implements MenuService {
             throw new ServiceException(SysMgrErrorCode.MENU_EXIST_CHILDREN);
         }
         menuMapper.deleteById(id);
-        // TODO: 2023/5/13 删除菜单需同步删除对应的角色权限、事务处理
     }
 
     @Override
